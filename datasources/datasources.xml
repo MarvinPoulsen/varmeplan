@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<datasources>
+    <endpoint endpointtype="[cbinfo.connection.lolland_postgis.type]" name="varmeplan_lolland_postgis">
+        <connect>[cbinfo.connection.lolland_postgis.url]</connect>
+        <user>[cbinfo.connection.lolland_postgis.user]</user>
+        <pwd>[cbinfo.connection.lolland_postgis.pwd]</pwd>
+    </endpoint>
+   
+    <datasource displayname="landsbyer_varmeplan" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_landsbyer_varmeplan">
+        <table geometrycolumn="geom" name="landsbyer_varmeplan" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
+    <datasource displayname="forsyningsomr" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_forsyningsomr">
+        <table geometrycolumn="geom" name="forsyningsomr" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
+    <datasource displayname="varmeinstallation" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_varmeinstallation">
+        <table geometrycolumn="geom" name="varmeinstallation" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
+	<datasource displayname="Solceller" endpoint="ep_lk_lois_bbr" name="ds_varmeplan_solceller">
+        <table geometrycolumn="geom" name="solceller" pkcolumn="id" schema="lois_bbr"/>
+    </datasource>
+	<datasource displayname="Elvarme og brændeovn" endpoint="ep_lk_lois_bbr" name="ds_varmeplan_elvarme_og_braendeovn">
+        <table geometrycolumn="geom" name="elvarme_og_braendeovn" pkcolumn="id" schema="lois_bbr"/>
+    </datasource>
+	<datasource displayname="Varmeværker" endpoint="varmeplan_lolland_postgis" name="lk_varmevaerker">
+	    <table geometrycolumn="geom" name="varmevaerker" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
+</datasources>

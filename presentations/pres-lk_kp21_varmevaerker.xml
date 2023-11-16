@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<presentation>
+    <text name="overskrift" plural="flertal" value="ental"/>
+    <columns>
+        <column format="heading">
+            <label>'overskrift1'</label>
+            <value>id</value>
+        </column>
+       
+        <column>
+            <label>'Navn'</label>
+            <value>navn</value>
+            <condition/>
+        </column>
+        <column>
+            <label>'Vejnavn'</label>
+            <value>vejnavn</value>
+            <condition/>
+        </column>
+        <column>
+            <label>'Husnummer'</label>
+            <value>husnummer</value>
+            <condition/>
+        </column>
+        <column>
+            <label>'Bogstav'</label>
+            <value>bogstav</value>
+            <condition/>
+        </column>
+        <column>
+            <label>'Postnummer'</label>
+            <value>postnummer</value>
+            <condition/>
+        </column>
+        <column>
+            <label>'By'</label>
+            <value>by</value>
+            <condition/>
+        </column>
+        <column>
+            <label>'Email'</label>
+            <value>email</value>
+            <condition/>
+        </column>
+        <column>
+            <label>'Hjemmeside'</label>
+            <value>hjemmeside</value>
+            <condition/>
+        </column>
+        
+    </columns>
+</presentation>

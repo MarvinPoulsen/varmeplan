@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<presentation>
+    <columns>
+       
+        <column>
+            <label>'Bygningsnummer'</label>
+            <value>byg007bygningsnummer</value>
+        </column>
+        <column>
+            <label>'Bygningensanvendelse'</label>
+            <value>byg021bygningensanvendelse_t</value>
+        </column>
+        <column>
+            <label>'Opførelsesår'</label>
+            <value>byg026opfoerelsesaar</value>
+        </column>
+        <column>
+            <label>'Samlet bygningsareal'</label>
+            <value>byg038samletbygningsareal</value>
+        </column>
+        <column>
+            <label>'Bygningens samlede boligareal'</label>
+            <value>byg039bygningenssamlboligareal</value>
+        </column>
+        <column>
+            <label>'Bygningens samlede erhvervareal'</label>
+            <value>byg040bygsamlerhvervareal</value>
+        </column>
+        
+        <column>
+            <label>'Varmeinstallation'</label>
+            <value>byg056varmeinstallation_t</value>
+        </column>
+        <column>
+            <label>'Opvarmningsmiddel'</label>
+            <value>byg057opvarmningsmiddel_t</value>
+        </column>
+        <column>
+            <label>'Supplerendevarme'</label>
+            <value>byg058supplerendevarme_t</value>
+        </column>
+        <column>
+            <label>'Vejnavn'</label>
+            <value>vejnavn</value>
+        </column>
+        <column>
+            <label>'Husnummer'</label>
+            <value>husnrtekst</value>
+        </column>
+        <column>
+            <label>'Postnr'</label>
+            <value>postnr</value>
+        </column>
+        <column>
+            <label>'Postdistrikt'</label>
+            <value>postdistrikt</value>
+        </column>
+        <column>
+            <label>'Matrikelnummer'</label>
+            <value>matrikelnummer</value>
+        </column>
+        <column>
+            <label>'Ejerlavsnavn'</label>
+            <value>ejerlavsnavn</value>
+        </column>
+        <column>
+            <label>'Antal enheder'</label>
+            <value>antalenheder</value>
+        </column>
+        <column>
+            <label>'BFE-nummer'</label>
+            <value>bfenummer</value>
+        </column>
+        
+    </columns>
+</presentation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme>
+    <clientlayers>
+        <clientlayer name="clientlayer">
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <cbinfo-metadata/>
+    <layer datasource="ds_varmeplan_solceller" name="lk_varmeplan_solceller_layer0_1680617745701" type="point">[datasource:ds_varmeplan_solceller.mapfile-datasource]
+        
+        <class>
+            <name>Solceller</name>
+            <style>
+                <color>255 51 204</color>
+                <size>7</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+    </layer>
+</theme>

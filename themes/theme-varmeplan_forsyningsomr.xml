@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer>
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <layer datasource="ds_varmeplan_forsyningsomr" downloadable="true" editable="false" name="ds_varmeplan_forsyningsomr" type="polygon">
+        [datasource:ds_varmeplan_forsyningsomr.mapfile-datasource]
+        <class>
+            <expression>/^Nakskov Forsyningsområde$/</expression>
+            <name>Nakskov Forsyningsområde</name>
+			 <label type="TRUETYPE">
+                <font>arial</font>
+                <size>12</size>
+                <color>0 0 0</color>
+            </label>
+            <style>
+                <color>169 130 112</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>3</size>
+                <width>1</width>
+                <opacity>57</opacity>
+                <pattern>100000 0</pattern>
+            </style>
+        </class>
+        <class>
+            <expression>/^Søllested Forsyningsområde$/</expression>
+            <name>Søllested Forsyningsområde</name>
+			 <label type="TRUETYPE">
+                <font>arial</font>
+                <size>12</size>
+                <color>0 0 0</color>
+            </label>
+            <style>
+                <color>169 010 112</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>3</size>
+                <width>1</width>
+                <opacity>57</opacity>
+                <pattern>100000 0</pattern>
+            </style>
+        </class>
+        <class>
+            <expression>/^Holeby Forsyningsområde$/</expression>
+            <name>Holeby Forsyningsområde</name>
+			 <label type="TRUETYPE">
+                <font>arial</font>
+                <size>12</size>
+                <color>0 0 0</color>
+            </label>
+            <style>
+                <color>169 130 010</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>3</size>
+                <width>1</width>
+                <opacity>57</opacity>
+                <pattern>100000 0</pattern>
+            </style>
+        </class>
+        <class>
+            <expression>/^Rødby Forsyningsområde$/</expression>
+            <name>Rødby Forsyningsområde</name>
+			 <label type="TRUETYPE">
+                <font>arial</font>
+                <size>12</size>
+                <color>0 0 0</color>
+            </label>
+            <style>
+                <color>169 010 150</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>3</size>
+                <width>1</width>
+                <opacity>57</opacity>
+                <pattern>100000 0</pattern>
+            </style>
+        </class>
+        <class>
+            <expression>/^Rødbyhavn Forsyningsområde$/</expression>
+            <name>Rødbyhavn Forsyningsområde</name>
+			 <label type="TRUETYPE">
+                <font>arial</font>
+                <size>12</size>
+                <color>0 0 0</color>
+            </label>
+            <style>
+                <color>169 130 010</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>3</size>
+                <width>1</width>
+                <opacity>57</opacity>
+                <pattern>100000 0</pattern>
+            </style>
+        </class>
+        <class>
+            <expression>/^Maribo Forsyningsområde$/</expression>
+            <name>Maribo Forsyningsområde</name>
+            <label type="TRUETYPE">
+                <font>arial</font>
+                <size>12</size>
+                <color>0 0 0</color>
+            </label>
+            <style>
+                <color>050 010 150</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>3</size>
+                <width>1</width>
+                <opacity>57</opacity>
+                <pattern>100000 0</pattern>
+            </style>
+        </class>
+        
+        <classitem>navn1203</classitem>
+        <labelitem>forsytekst</labelitem>
+    </layer>
+</theme>

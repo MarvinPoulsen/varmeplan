@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer>
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <layer datasource="ds_varmeplan_varmeinstallation" downloadable="true" editable="false" name="ds_varmeplan_varmeinstallation" type="POLYGON">
+        [datasource:ds_varmeplan_varmeinstallation.mapfile-datasource]
+        <class>
+            <expression>/^Fjernvarme/blokvarme$/</expression>
+            <name>Fjernvarme/blokvarme</name>
+            <style>
+                <color>0 204 0</color>
+                <size>6</size>
+            </style>
+        </class>
+        <class>
+            <expression>/^Elvarme$/</expression>
+            <name>Elvarme</name>
+            <style>
+                <color>"#ff8040"</color>
+                <size>6</size>
+            </style>
+        </class>
+        <class>
+            <expression>/^Varmepumpe$/</expression>
+            <name>Varmepumpe</name>
+            <style>
+                <color>255 255 0</color>
+                <size>6</size>
+            </style>
+        </class>
+        <class>
+            <expression>("[byg056varmeinstallation_t]" in "Centralvarme med to fyringsenheder,Centralvarme med én fyringsenhed")</expression>
+            <name>Centralvarme</name>
+            <style>
+                <color>255 51 51</color>
+                <size>6</size>
+            </style>
+        </class>
+        <class>
+            <expression>/^Ovn til fast og flydende brændsel$/</expression>
+            <name>Ovn til fast og flydende brændsel</name>
+            <style>
+                <color>255 51 51</color>
+                <size>6</size>
+            </style>
+        </class>
+        <classitem>byg056varmeinstallation_t</classitem>
+    </layer>
+    <layer datasource="ds_varmeplan_varmeinstallation" downloadable="true" editable="false" name="ds_varmeplan_varmeinstallation" type="POLYGON">
+        [datasource:ds_varmeplan_varmeinstallation.mapfile-datasource]
+        <class>
+            <expression>/^Flydende brændsel$/</expression>
+            <name>Flydende brændsel</name>
+            <style>
+                <color>0 0 0</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>10</size>
+                <symbol>hatch</symbol>
+                <width>2</width>
+                <angle>320</angle>
+            </style>
+        </class>
+        <class>
+            <expression>/^Fast brændsel$/</expression>
+            <name>Fast brændsel</name>
+            <style>
+                <color>205 127 50</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>10</size>
+                <symbol>hatch</symbol>
+                <width>2</width>
+                <angle>320</angle>
+            </style>
+        </class>
+        <class>
+            <expression>/^Halm$/</expression>
+            <name>Halm</name>
+            <style>
+                <color>248 235 0</color>
+                <outlinecolor>234 221 202</outlinecolor>
+                <size>10</size>
+                <symbol>hatch</symbol>
+                <width>5</width>
+                <angle>320</angle>
+            </style>
+		</class>
+		<classitem>byg057opvarmningsmiddel_t</classitem>	
+	</layer>
+</theme>

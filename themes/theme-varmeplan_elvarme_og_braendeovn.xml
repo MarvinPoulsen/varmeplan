@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme>
+    <clientlayers>
+        <clientlayer name="clientlayer">
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <cbinfo-metadata/>
+    <layer datasource="ds_varmeplan_elvarme_og_braendeovn" name="lk_varmeplan_elvarme_og_braendeovn_layer0_1680699235226" type="polygon">[datasource:ds_varmeplan_elvarme_og_braendeovn.mapfile-datasource]
+        
+        
+        
+        <class>
+            <name>Elvarme og brændeovn</name>
+            <style>
+                <color>51 255 255</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>10</size>
+                <symbol>hatch</symbol>
+                <width>5</width>
+                <angle>320</angle>
+            </style>
+        </class>
+    </layer>
+</theme>

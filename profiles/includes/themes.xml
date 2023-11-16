@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<themes>
+    <theme module="varmeplan" name="theme-varmeplan_varmeinstallation">
+        <themeselector>
+			<displayname>Varmeinstallation</displayname>
+            <initialstate>hidden</initialstate>
+            <group>varmeplan</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>true</downloadable>
+    </theme>
+    <theme module="varmeplan" name="theme-varmeplan_forsyningsomr">
+        <themeselector>
+			<displayname>Forsyningsområder - fjernvarme</displayname>
+            <initialstate>hidden</initialstate>
+            <group>varmeplan</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>true</downloadable>
+    </theme>
+    <theme module="varmeplan" name="theme-varmeplan_landsbyer_varmeplan">
+        <themeselector>
+			<displayname>Landsbyer - varmeplan</displayname>
+            <initialstate>hidden</initialstate>
+            <group>varmeplan</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>true</downloadable>
+    </theme>
+	<theme module="varmeplan" name="theme-varmeplan_elvarme_og_braendeovn">
+        <themeselector>
+			<displayname>Elvarme og brændeovn</displayname>
+            <initialstate>hidden</initialstate>
+            <group>varmeplan</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>true</downloadable>
+    </theme>
+	<theme module="varmeplan" name="theme-varmeplan_solceller">
+        <themeselector>
+			<displayname>Solceller</displayname>
+            <initialstate>hidden</initialstate>
+            <group>varmeplan</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>true</downloadable>
+    </theme>
+	<theme module="varmeplan" name="theme-lk_varmevaerker">
+        <themeselector>
+			<displayname>Varmeværker</displayname>
+            <initialstate>hidden</initialstate>
+            <group>varmeplan</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>true</downloadable>
+    </theme>
+</themes>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer name="clientlayer">
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <cbinfo-metadata/>
+    <layer datasource="lk_varmevaerker" name="lk_varmevaerker_layer0_1680685975634" type="point">
+        [datasource:lk_varmevaerker.mapfile-datasource]
+        <class>
+            <expression>/^1$/</expression>
+            <name>Privat fjernvarmeværk</name>
+            <style>
+                <color>"#ff0000"</color>
+                <size>6</size>
+            </style>
+        </class>
+        <class>
+            <expression>/^2$/</expression>
+            <name>Offentligt fjernvarmeværk</name>
+            <style>
+                <color>"#0000ff"</color>
+                <size>6</size>
+            </style>
+        </class>
+        <classitem>type</classitem>
+        <labelitem>navn</labelitem>
+    </layer>
+</theme>

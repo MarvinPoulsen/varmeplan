@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer>
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <layer datasource="ds_varmeplan_landsbyer_varmeplan" downloadable="true" editable="false" name="ds_varmeplan_landsbyer_varmeplan" type="POLYGON">
+        [datasource:ds_varmeplan_landsbyer_varmeplan.mapfile-datasource]
+        <class>
+            <name>Landsbyer-varmeplan</name>
+            <style>
+                <color>69 176 222</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>3</size>
+                <width>1</width>
+                <opacity>60</opacity>
+                <pattern>100000 0</pattern>
+            </style>
+        </class>
+    </layer>
+</theme>

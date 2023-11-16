@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<targetset>
+    <target name="varmeplan_landsbyer_varmeplan" themecondition="theme-varmeplan_landsbyer_varmeplan">
+        <datasource name="ds_varmeplan_landsbyer_varmeplan"/>
+    </target>
+    <target name="varmeplan_forsyningsomr" themecondition="theme-varmeplan_forsyningsomr">
+        <datasource name="ds_varmeplan_forsyningsomr"/>
+    </target>
+    <target name="varmeplan_varmeinstallation" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_varmeinstallation" themecondition="theme-varmeplan_varmeinstallation">
+        <datasource name="ds_varmeplan_varmeinstallation"/>
+    </target>
+    <target name="lk_varmevaerker" presentation="[module:landsbyanalyse.dir]/presentations/pres-lk_varmevaerker" themecondition="theme-lk_varmevaerker">
+        <datasource name="lk_varmevaerker"/>
+    </target>
+</targetset>
