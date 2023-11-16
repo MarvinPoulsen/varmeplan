@@ -3,17 +3,33 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "targets": {
+    "main": false
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel serve ./src/index.html",
+    "build": "parcel build ./src/index.html --dist-dir ../dist/ --public-url ./",
+    "watch": "parcel watch ./src/index.html --dist-dir ../dist/ --public-url ./"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@mdi/js": "^7.3.67",
+    "@mdi/react": "^1.6.1",
+    "@tanstack/react-table": "^8.10.7",
     "bulma": "^0.9.4",
+    "chart.js": "^4.4.0",
+    "date-fns": "^2.30.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
-    "parcel": "^2.10.3"
+    "@parcel/transformer-sass": "^2.10.3",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "parcel": "^2.10.3",
+    "process": "^0.11.10"
   }
 }
