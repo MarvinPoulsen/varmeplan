@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './app.scss';
 
 import HeroNavigation from '../heronavigation/HeroNavigation';
@@ -22,6 +22,7 @@ const App: FC = () => {
                         <Route path="/landsbyer" element={<VillagesPage />} />
                         <Route path="/sommerhusomraader" element={<CottageAreasPage />} />
                         <Route path="/detaabneland" element={<OpenCountryPage />} />
+                        <Route path="*" element={<Navigate to="/" />} />
                     </Route>
                 </Routes>
             </section>
