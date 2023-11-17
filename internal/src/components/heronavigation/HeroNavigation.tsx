@@ -54,7 +54,7 @@ const HeroNavigation: FC = () => {
                                     <span>
                                         <Icon path={mdiHomeThermometer} size={1} />
                                     </span>
-                                    <span className="navigation-text">Forsyningsområder</span>
+                                    <span className="navigation-text ml-1">Forsyningsområder</span>
                                 </Link>
                             </li>
                             <li className={isActiveTab === Tab.Villages ? 'is-active' : ''}>
@@ -62,7 +62,7 @@ const HeroNavigation: FC = () => {
                                     <span>
                                         <Icon path={mdiHomeGroup} size={1} />
                                     </span>
-                                    <span>Landsbyer</span>
+                                    <span className="navigation-text ml-1">Landsbyer</span>
                                 </Link>
                             </li>
                             <li className={isActiveTab === Tab.CottageAreas ? 'is-active' : ''}>
@@ -70,7 +70,7 @@ const HeroNavigation: FC = () => {
                                     <span>
                                         <Icon path={mdiBeach} size={1} />
                                     </span>
-                                    <span>Sommerhusområder</span>
+                                    <span className="navigation-text ml-1">Sommerhusområder</span>
                                 </Link>
                             </li>
                             <li className={isActiveTab === Tab.OpenCountry ? 'is-active' : ''}>
@@ -78,7 +78,7 @@ const HeroNavigation: FC = () => {
                                     <span>
                                         <Icon path={mdiNaturePeople} size={1} />
                                     </span>
-                                    <span>Det åbne land</span>
+                                    <span className="navigation-text ml-1">Det åbne land</span>
                                 </Link>
                             </li>
                         </ul>

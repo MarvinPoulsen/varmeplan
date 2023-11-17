@@ -11,7 +11,7 @@ import OpenCountryPage from '../../pages/OpenCountry';
 const App: FC = () => {
     return (
         <>
-            <section className="hero is-info is-small">
+            <section className="hero is-primary is-small">
                 <HeroNavigation />
             </section>
             <section className="section">

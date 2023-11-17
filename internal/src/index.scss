@@ -4,43 +4,63 @@
 @import "../node_modules/bulma/sass/utilities/initial-variables.sass";
 @import "../node_modules/bulma/sass/utilities/functions.sass";
 
-
 // 2. Set your own initial variables
-// Update blue
-$blue: #72d0eb;
-$yellowich:#ccff00;
-// Add pink and its invert
-$pink: #ffb3fb;
-$pink-invert: #fff;
+// Lolland colors Pantone 294
+$dark-blue: #003478;
+$dark-blue-80: #335D93;
+$dark-blue-60: #6685AE;
+$dark-blue-40: #99AEC9;
+$dark-blue-20: #CCD6E4;
+
+// Lolland colors Pantone 369
+$green: #58a618;
+$green-80: #70B65F;
+$green-60: #91C483;
+$green-40: #BCD5A7;
+$green-20: #D5E7CF;
+
+// Lolland colors Pantone 2905
+$light-blue: #8FC9E6;
+$light-blue-80: #A4D4E4;
+$light-blue-60: #BBDEF0;
+$light-blue-40: #D2E9F3;
+$light-blue-20: #E8F3F8;
+
+// Lolland colors Pantone 638
+$blue-green: #009BBB;
+$blue-green-80: #33AFC9;
+$blue-green-60: #66C3D6;
+$blue-green-40: #99D7E4;
+$blue-green-20: #CCEBF1;
+
+// Lolland colors Pantone 382
+$lime-green: #BED600;
+$lime-green-80: #CBDE33;
+$lime-green-60: #D8E666;
+$lime-green-40: #E5EF99;
+$lime-green-20: #F2F7CC;
+
+// Lolland colors Pantone 5825
+$umbra: #827C34;
+$umbra-80: #9B965D;
+$umbra-60: #B4B085;
+$umbra-40: #CDCBAE;
+$umbra-20: #E6E5D6;
+
 // Add a serif family
-$family-serif: "Merriweather", "Georgia", serif;
+$family-serif: "Verdana", "Georgia", serif;
 
 // 3. Set the derived variables
-// Use the new pink as the primary color
-$primary: $pink;
-$link: $yellowich;
-$primary-invert: $pink-invert;
-// Use the existing orange as the danger color
-$danger: $orange;
+// Use the new colors
+$primary: $green;
+// $link: $yellowich;
+// $primary-invert: $pink-invert;
+
 // Use the new serif family
 $family-primary: $family-serif;
 
-// 4. Setup your Custom Colors
-$linkedin: #0077b5;
-$linkedin-invert: findColorInvert($linkedin);
-$twitter: #55acee;
-$twitter-invert: findColorInvert($twitter);
-$github: #333;
-$github-invert: findColorInvert($github);
-
 // 5. Add new color variables to the color map.
 @import "../node_modules/bulma/sass/utilities/derived-variables.sass";
-$addColors: (
-  "twitter":($twitter, $twitter-invert),
-  "linkedin": ($linkedin, $linkedin-invert),
-  "github": ($github, $github-invert)
-);
-$colors: map-merge($colors, $addColors);
 
 
 // @import "../node_modules/bulma/sass/components/card.sass";
@@ -56,33 +76,3 @@ $colors: map-merge($colors, $addColors);
 
 // 6. Import the rest of Bulma
 @import "../node_modules/bulma/bulma.sass";
-
-
-// Import a Google Font
-// @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
-
-// Set your brand colors
-// $purple: #8abb18;
-// $pink: #8f2047;
-// $brown: #fa7304;
-// $beige-light: #c216c2;
-// $beige-lighter: #8513d1;
-
-// Update Bulma's global variables
-// $family-sans-serif: "Nunito", sans-serif;
-// $grey-dark: $brown;
-// $grey-light: $beige-light;
-// $primary: $purple;
-// $link: $pink;
-// $widescreen-enabled: false;
-// $fullhd-enabled: false;
-
-// Update some of Bulma's component variables
-// $body-background-color: $beige-lighter;
-// $control-border-width: 2px;
-// $input-border-color: transparent;
-// $input-shadow: none;
-
-// Import only what you need from Bulma
-// @import "node_modules/bulma/sass/utilities/initial-variables";
-// @import "node_modules/bulma/bulma";
