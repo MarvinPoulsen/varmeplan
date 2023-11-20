@@ -24,4 +24,17 @@
 	<datasource displayname="Varmeværker" endpoint="varmeplan_lolland_postgis" name="lk_varmevaerker">
 	    <table geometrycolumn="geom" name="varmevaerker" pkcolumn="id" schema="varmeplan"/>
     </datasource>
+
+    <datasource displayname="OpenCountry" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_landsbyer_vi_aabneland_hist">
+        <table name="vi_aabneland_hist" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
+    <datasource displayname="SupplyArea" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_landsbyer_vi_forsyningsomr_hist">
+        <table name="vi_forsyningsomr_hist" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
+    <datasource displayname="Villages" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_landsbyer_vi_landsbyer_hist">
+        <table name="vi_landsbyer_hist" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
+    <datasource displayname="CottageAreas" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_landsbyer_vi_sommerhuse_hist">
+        <table name="vi_sommerhuse_hist" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
 </datasources>

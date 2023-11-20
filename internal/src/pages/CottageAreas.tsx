@@ -5,12 +5,12 @@ import { varmeplanMinimapId } from '../../config';
 export interface CottageAreasRow {
     id: number;
     navn: string;
-    dato: Date;
-    varmeinstallation: string;
-    total_count: number;
-    samlerhvervareal: number;
-    bygningenssamlboligareal: number;
-    shape_wkt: { wkt: string };
+    aar: string;
+    varme: string;
+    antalbygninger: number;
+    boligareal: number;
+    erhvervsareal: number;
+    // shape_wkt: { wkt: string };
 }
 
 const CottageAreasPage: FC = () => {
@@ -19,7 +19,7 @@ const CottageAreasPage: FC = () => {
     const onMapReady = (mm) => {
         minimap.current = mm;
         const ses = mm.getSession();
-        const ds = ses.getDatasource('ds_varmeplan_landsbyer_varmeplan');
+        const ds = ses.getDatasource('ds_varmeplan_landsbyer_vi_sommerhuse_hist');
         ds.execute({ command: 'read' }, function (rows: CottageAreasRow[]) {
             setCottageAreasData(rows);
         });

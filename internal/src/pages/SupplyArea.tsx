@@ -1,16 +1,21 @@
 import React, { FC, useRef, useState } from 'react';
 import Map from '../components/minimap/Minimap';
 import { varmeplanMinimapId } from '../../config';
+import TableLegend from '../components/charts/TableLegend';
 
 export interface SupplyAreaRow {
     id: number;
     navn: string;
-    dato: Date;
-    varmeinstallation: string;
-    total_count: number;
-    samlerhvervareal: number;
-    bygningenssamlboligareal: number;
-    shape_wkt: { wkt: string };
+    aar: string;
+    varme: string;
+    antalbygninger: number;
+    boligareal: number;
+    erhvervsareal: number;
+    // shape_wkt: { wkt: string };
+}
+
+const createTableData = (data) =>{
+    console.log('data: ', data)
 }
 
 const SupplyAreaPage: FC = () => {
@@ -19,7 +24,7 @@ const SupplyAreaPage: FC = () => {
     const onMapReady = (mm) => {
         minimap.current = mm;
         const ses = mm.getSession();
-        const ds = ses.getDatasource('ds_varmeplan_landsbyer_varmeplan');
+        const ds = ses.getDatasource('ds_varmeplan_landsbyer_vi_forsyningsomr_hist');
         ds.execute({ command: 'read' }, function (rows: SupplyAreaRow[]) {
             setSupplyAreaData(rows);
         });
@@ -36,7 +41,7 @@ console.log('SupplyAreaData: ',SupplyAreaData)
                     <div className="column">
                         <div className="block">
                             {minimap.current && (
-                                <p>Varmeplan</p>
+                                <TableLegend />
                             )}
                         </div>
                         </div>
