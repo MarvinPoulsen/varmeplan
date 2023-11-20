@@ -39,7 +39,7 @@ import {
     {
       varme: 'Varmepumpe',
       antalbygninger: 400,
-      boligareal: 20,
+      boligareal: 2000,
       erhvervsareal: 10,
       on:true,
     },
@@ -55,7 +55,7 @@ import {
       antalbygninger: 5000,
       boligareal: 206,
       erhvervsareal: 120,
-      on:true,
+      on:false,
     },
     {
       varme: 'Andet',
@@ -71,25 +71,25 @@ import {
   const columns = [
     columnHelper.accessor('varme', {
       cell: info => <><span className="color-box" style={{ background: background[info.row.index], borderColor: borderColor[info.row.index], }} ></span>{info.getValue()}</>,
-      footer: info => 'test',
+      footer: info => 'I alt',
     }),
     columnHelper.accessor(row => row.antalbygninger, {
       id: 'antalbygninger',
-      cell: info => info.getValue(),
+      cell: info => toPrettyNumber(info.getValue()),
       header: () => <span>Antal bygninger</span>,
       // @ts-ignore
-      footer: ({ table }) => table.getFilteredRowModel().rows?.reduce((sum, row) => sum + row.getValue('antalbygninger'), 0),
+      footer: ({ table }) => toPrettyNumber(table.getFilteredRowModel().rows?.filter((item)=>item.original.on).reduce((sum, row) => sum + row.getValue('antalbygninger'), 0)),
     }),
     columnHelper.accessor('boligareal', {
       header: () => 'Samlet boligareal',
-      cell: info => info.getValue(),
+      cell: info => toPrettyNumber(info.getValue()),
       // @ts-ignore
-      footer: ({ table }) => table.getFilteredRowModel().rows.reduce((total, row) => total + row.getValue('boligareal'), 0),
+      footer: ({ table }) => toPrettyNumber(table.getFilteredRowModel().rows.reduce((total, row) => total + row.getValue('boligareal'), 0)),
     }),
     columnHelper.accessor('erhvervsareal', {
       header: () => <span>Samlet erhvervsareal</span>,
       // @ts-ignore
-      footer: ({ table }) => table.getFilteredRowModel().rows?.reduce((sum, row) => sum + row.getValue('erhvervsareal'), 0),
+      footer: ({ table }) => toPrettyNumber(table.getFilteredRowModel().rows?.reduce((sum, row) => sum + row.getValue('erhvervsareal'), 0)),
     }),
     columnHelper.accessor(row => [row.boligareal, row.erhvervsareal].reduce((sum, current) => sum + current, 0), {
         id: 'arealialt ',
@@ -138,15 +138,14 @@ const TableLegend = () => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map(row => (
-              <tr key={row.id} onClick={()=>console.log('index of row: ',row.index)}>
+              <tr key={row.id} onClick={(e)=>console.log('index of row: ',row.index,e)}>
                 {row.getVisibleCells().map(cell => { 
-                // console.log('cell: ', typeof cell.getValue())
+                const isOff = !cell.row.original.on ? ' is-off' : '';
+                console.log('cell: ', isOff)
                 // @ts-ignore
                 const isNumber = isNaN(cell.getValue()) ? 'content' : 'content has-text-right';
-                // console.log('isNumber: ', isNumber)
-
                 return (
-                  <td key={cell.id} className={isNumber}>
+                  <td key={cell.id} className={isNumber + isOff}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 )}
@@ -157,8 +156,9 @@ const TableLegend = () => {
           <tfoot>
             {table.getFooterGroups().map(footerGroup => (
               <tr key={footerGroup.id}>
-                {footerGroup.headers.map(header => (
-                  <th key={header.id}>
+                {footerGroup.headers.map(header => {
+                return (
+                  <th key={header.id} className={header.index === 0 ? 'content' : 'content has-text-right'}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -166,7 +166,8 @@ const TableLegend = () => {
                           header.getContext()
                         )}
                   </th>
-                ))}
+                )}
+                )}
               </tr>
             ))}
           </tfoot>
