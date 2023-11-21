@@ -8,9 +8,9 @@ export interface SupplyAreaRow {
     navn: string;
     aar: string;
     varme: string;
-    antalbygninger: number;
-    boligareal: number;
-    erhvervsareal: number;
+    antalbygninger: string;
+    boligareal: string;
+    erhvervsareal: string;
     // shape_wkt: { wkt: string };
 }
 
@@ -44,19 +44,17 @@ const getAreas = (data: SupplyAreaRow[]) => {
 };
 
 const createTableData = (data: SupplyAreaRow[], analysisParams) => {
+    console.log('data: ',typeof data[0].erhvervsareal)
     const tableDate: TLData[] = [];
     for (let i = 0; i < analysisParams.length; i++) {
         const analysisParam = analysisParams[i];
         const varme = analysisParam.title;
-        const antalbygninger = data.find((item) => item.varme === varme)
-            ? data.find((item) => item.varme === varme)!.antalbygninger
-            : 0;
-        const boligareal = data.find((item) => item.varme === varme)
-            ? data.find((item) => item.varme === varme)!.boligareal
-            : 0;
-        const erhvervsareal = data.find((item) => item.varme === varme)
-            ? data.find((item) => item.varme === varme)!.erhvervsareal
-            : 0;
+        // const antalbygninger = data.find((item) => item.varme === varme) ? data.find((item) => item.varme === varme)!.antalbygninger : 0;
+        // const boligareal = data.find((item) => item.varme === varme) ? data.find((item) => item.varme === varme)!.boligareal : 0;
+        // const erhvervsareal = data.find((item) => item.varme === varme) ? data.find((item) => item.varme === varme)!.erhvervsareal : 0;
+        const antalbygninger = data.find((item) => item.varme === varme) ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + (parseInt(cur.antalbygninger)), 0) : 0;
+        const boligareal = data.find((item) => item.varme === varme) ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + (parseInt(cur.boligareal)), 0) : 0;
+        const erhvervsareal = data.find((item) => item.varme === varme) ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + (parseInt(cur.erhvervsareal)), 0) : 0;
         const on = analysisParam.on;
         tableDate.push({
             varme,
@@ -104,11 +102,12 @@ const SupplyAreaPage: FC = () => {
     // console.log('filteredByYear: ', filteredByYear);
     const filteredByArea =
         filteredByYear.length > 0 ? (area ? filteredByYear.filter((item) => item.navn === area) : filteredByYear) : [];
-    // console.log('filteredByArea: ', filteredByArea);
+    console.log('filteredByArea: ', filteredByArea);
     const supplyAreaTable = filteredByArea.length > 0 && createTableData(filteredByArea, heatingAgents);
     const uniqueYears = getYears(supplyAreaData);
     const uniqueAreas = getAreas(supplyAreaData);
-    console.log('areas: ', uniqueAreas);
+    // console.log('areas: ', uniqueAreas);
+    console.log('area: ', area);
 
     const yearButtonRow: JSX.Element[] = [];
     for (let i = 0; i < uniqueYears.length; i++) {
