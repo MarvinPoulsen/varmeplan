@@ -3,4 +3,7 @@
     <version>2023-10-26 10:39:22</version>
     <lastupdated>Thu Oct 26 12:12:35 CEST 2023</lastupdated>
     <since>1.0.0</since>
+	
+    <makedir dir="[cbinfo.wwwroot.dir]/modules/varmeplan" />
+    <copydir fromdir="[module:talomlolland.dir]/dist" todir="[cbinfo.wwwroot.dir]/modules/varneplan" replacetext="true"/>
 </deploy>
