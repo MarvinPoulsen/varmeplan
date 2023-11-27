@@ -8,3 +8,8 @@ td.is-off{
     margin-right: 6px;
     width: 12px;
 }
+.stackedbar-no-legend {
+    aspect-ratio: 1/1;
+    // aspect-ratio: auto;
+    // aria-label='Beskrivelse af grafen'
+}

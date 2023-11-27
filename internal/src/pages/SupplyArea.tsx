@@ -1,7 +1,16 @@
 import React, { FC, useRef, useState } from 'react';
+import '../components/charts/charts.scss';
+import '../components/app/app.scss';
 import Map from '../components/minimap/Minimap';
 import { varmeplanMinimapId } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
+import StackedbarNoLegend, { StackedDataSeries } from '../components/charts/StackedbarNoLegend';
+import Select from 'react-select';
+
+export interface AreaRow {
+    navn1203: string;
+    shape_wkt: { wkt: string };
+}
 
 export interface SupplyAreaRow {
     id: number;
@@ -11,7 +20,7 @@ export interface SupplyAreaRow {
     antalbygninger: string;
     boligareal: string;
     erhvervsareal: string;
-    // shape_wkt: { wkt: string };
+    shape_wkt: { wkt: string };
 }
 
 export interface TLData {
@@ -44,17 +53,19 @@ const getAreas = (data: SupplyAreaRow[]) => {
 };
 
 const createTableData = (data: SupplyAreaRow[], analysisParams) => {
-    console.log('data: ',typeof data[0].erhvervsareal)
     const tableDate: TLData[] = [];
     for (let i = 0; i < analysisParams.length; i++) {
         const analysisParam = analysisParams[i];
         const varme = analysisParam.title;
-        // const antalbygninger = data.find((item) => item.varme === varme) ? data.find((item) => item.varme === varme)!.antalbygninger : 0;
-        // const boligareal = data.find((item) => item.varme === varme) ? data.find((item) => item.varme === varme)!.boligareal : 0;
-        // const erhvervsareal = data.find((item) => item.varme === varme) ? data.find((item) => item.varme === varme)!.erhvervsareal : 0;
-        const antalbygninger = data.find((item) => item.varme === varme) ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + (parseInt(cur.antalbygninger)), 0) : 0;
-        const boligareal = data.find((item) => item.varme === varme) ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + (parseInt(cur.boligareal)), 0) : 0;
-        const erhvervsareal = data.find((item) => item.varme === varme) ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + (parseInt(cur.erhvervsareal)), 0) : 0;
+        const antalbygninger = data.find((item) => item.varme === varme)
+            ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + parseInt(cur.antalbygninger), 0)
+            : 0;
+        const boligareal = data.find((item) => item.varme === varme)
+            ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + parseInt(cur.boligareal), 0)
+            : 0;
+        const erhvervsareal = data.find((item) => item.varme === varme)
+            ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + parseInt(cur.erhvervsareal), 0)
+            : 0;
         const on = analysisParam.on;
         tableDate.push({
             varme,
@@ -67,9 +78,31 @@ const createTableData = (data: SupplyAreaRow[], analysisParams) => {
     return tableDate;
 };
 
+const createStackedbarData = (data: SupplyAreaRow[], analysisParams, years) => {
+    const stackedbarData: StackedDataSeries[] = [];
+    for (let i = 0; i < analysisParams.length; i++) {
+        const analysisParam = analysisParams[i];
+        const values: number[] = [];
+        for (let k = 0; k < years.length; k++) {
+            const year = years[k];
+            const dataByYear = data.filter((item) => item.aar === year);
+            const dataByTitle = dataByYear.filter((item) => item.varme === analysisParam.title);
+            const value = dataByTitle.reduce((sum, cur) => sum + parseInt(cur.antalbygninger), 0);
+            values.push(value);
+        }
+        stackedbarData.push({
+            name: analysisParam.title,
+            values,
+            stack: '0',
+        });
+    }
+    return stackedbarData;
+};
+
 const SupplyAreaPage: FC = () => {
     const minimap: any = useRef(null);
     const [supplyAreaData, setSupplyAreaData] = useState<SupplyAreaRow[]>([]);
+    const [areaData, setAreaData] = useState<AreaRow[]>([]);
     const [year, setYear] = useState<string>('2011');
     const [area, setArea] = useState<string | undefined>(undefined);
 
@@ -89,6 +122,21 @@ const SupplyAreaPage: FC = () => {
         ds.execute({ command: 'read' }, function (rows: SupplyAreaRow[]) {
             setSupplyAreaData(rows);
         });
+
+        const dsArea = ses.getDatasource('ds_varmeplan_forsyningsomr');
+        dsArea.execute({ command: 'read' }, function (areaRows: AreaRow[]) {
+            setAreaData(areaRows);
+        });
+    };
+
+    const testing = () => {
+        if (area) {
+            const filteredAreaData = areaData.find((item) => item.navn1203 === area);
+            console.log('filteredAreaData: ', filteredAreaData!.shape_wkt);
+            minimap.current.getMapControl().setMarkingGeometry(filteredAreaData!.shape_wkt, true, true, 0);
+        } else if (area === undefined) {
+            console.log( 'area is undefined')
+        }
     };
 
     const onHeatingAgentsToggle = (rowIndex: number) => {
@@ -98,16 +146,15 @@ const SupplyAreaPage: FC = () => {
         // handleThemeToggle(rowIndex)
     };
 
-    const filteredByYear = supplyAreaData.length > 0 ? supplyAreaData.filter((item) => item.aar === year) : [];
-    // console.log('filteredByYear: ', filteredByYear);
     const filteredByArea =
-        filteredByYear.length > 0 ? (area ? filteredByYear.filter((item) => item.navn === area) : filteredByYear) : [];
-    console.log('filteredByArea: ', filteredByArea);
-    const supplyAreaTable = filteredByArea.length > 0 && createTableData(filteredByArea, heatingAgents);
+        supplyAreaData.length > 0 ? (area ? supplyAreaData.filter((item) => item.navn === area) : supplyAreaData) : [];
+
+    const filteredByYear = filteredByArea.length > 0 ? filteredByArea.filter((item) => item.aar === year) : [];
+
+    const supplyAreaTable = filteredByYear.length > 0 && createTableData(filteredByYear, heatingAgents);
     const uniqueYears = getYears(supplyAreaData);
     const uniqueAreas = getAreas(supplyAreaData);
-    // console.log('areas: ', uniqueAreas);
-    console.log('area: ', area);
+    const supplyAreaStackedbar = filteredByArea.length > 0 && createStackedbarData(filteredByArea, heatingAgents, uniqueYears);
 
     const yearButtonRow: JSX.Element[] = [];
     for (let i = 0; i < uniqueYears.length; i++) {
@@ -141,6 +188,29 @@ const SupplyAreaPage: FC = () => {
         );
     }
 
+    const handleAreaFilter = (event) => {
+        console.log('event: ', event);
+        const area = event ? event.value : undefined;
+        setArea(area);
+        if (area) {
+            const filteredAreaData = areaData.find((item) => item.navn1203 === area);
+            filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 0);
+        } else if (area === undefined) {
+            console.log( 'area is undefined')
+            const mapExtent  = minimap.current.getMapControl()._mapConfig.getExtent();
+            minimap.current.getMapControl().zoomToExtent(mapExtent);
+        }
+    };
+
+    const options = uniqueAreas.map((element) => {
+        const value = element;
+        const label = element;
+        return {
+            value,
+            label,
+        };
+    });
+
     return (
         <>
             <div id="SupplyArea-tab-content" className="container">
@@ -148,7 +218,21 @@ const SupplyAreaPage: FC = () => {
                     <div className="columns">
                         <Map id={varmeplanMinimapId} name="supply-area" size="is-4" onReady={onMapReady} />
                         <div className="column is-8">
-                            <div className="field is-grouped">{yearButtonRow}</div>
+                            <div className="field is-grouped">
+                                {yearButtonRow}
+                                <div className="control is-expanded">
+                                    <Select
+                                        name="area"
+                                        options={options}
+                                        className="basic-single"
+                                        classNamePrefix="select"
+                                        isClearable={true}
+                                        isSearchable={true}
+                                        onChange={handleAreaFilter}
+                                        placeholder="Filtrer på område"
+                                    />
+                                </div>
+                            </div>
                             <div className="block">
                                 <div className="columns">
                                     <div className="column">
@@ -157,14 +241,24 @@ const SupplyAreaPage: FC = () => {
                                         )}
                                     </div>
                                     <div className="column is-4">
-                                        {areaButtonRow}
-                                        <button className="button" onClick={() => setArea(undefined)}>
-                                            Reset
-                                        </button>
+                                        <div className="block stackedbar-no-legend">
+                                            {supplyAreaStackedbar && (
+                                                <StackedbarNoLegend
+                                                    title={area ? area : 'Alle forsyningesområder'}
+                                                    categories={uniqueYears}
+                                                    dataSeries={supplyAreaStackedbar}
+                                                    visibility={heatingAgents.map((item) => item.on)}
+                                                />
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="block"></div>
+                            <div className="block control">
+                                <button className="button" onClick={testing}>
+                                    Testing
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
