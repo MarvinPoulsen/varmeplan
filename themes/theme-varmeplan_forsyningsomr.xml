@@ -109,6 +109,14 @@
                 <pattern>100000 0</pattern>
             </style>
         </class>
+        <class>
+            <style>
+                <color>050 255 150</color>
+                <outlinecolor>255 102 0</outlinecolor>
+                <width>1</width>
+                <opacity>57</opacity>
+            </style>
+        </class>
         
         <classitem>navn1203</classitem>
         <labelitem>forsytekst</labelitem>

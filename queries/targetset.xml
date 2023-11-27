@@ -3,7 +3,7 @@
     <target name="varmeplan_landsbyer_varmeplan" themecondition="theme-varmeplan_landsbyer_varmeplan">
         <datasource name="ds_varmeplan_landsbyer_varmeplan"/>
     </target>
-    <target name="varmeplan_forsyningsomr" themecondition="theme-varmeplan_forsyningsomr">
+    <target name="varmeplan_forsyningsomr" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_forsyningsomr" themecondition="theme-varmeplan_forsyningsomr">
         <datasource name="ds_varmeplan_forsyningsomr"/>
     </target>
     <target name="varmeplan_varmeinstallation" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_varmeinstallation" themecondition="theme-varmeplan_varmeinstallation">

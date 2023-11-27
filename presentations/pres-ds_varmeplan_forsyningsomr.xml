@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<presentation>
+    <columns>
+        <column>
+            <label>'id'</label>
+            <value>id</value>
+        </column>
+        <column>
+            <label>'temanavn'</label>
+            <value>temanavn</value>
+        </column>
+        <column>
+            <label>'navn1203'</label>
+            <value>navn1203</value>
+        </column>
+        <column>
+            <label>'type1203'</label>
+            <value>type1203</value>
+        </column>
+        <column>
+            <label>'vaerdi1203'</label>
+            <value>vaerdi1203</value>
+        </column>
+        <column>
+            <label>'forsytekst'</label>
+            <value>forsytekst</value>
+        </column>
+    </columns>
+</presentation>
