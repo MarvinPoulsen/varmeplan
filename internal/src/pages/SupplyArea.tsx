@@ -121,6 +121,13 @@ const SupplyAreaPage: FC = () => {
         const ds = ses.getDatasource('ds_varmeplan_landsbyer_vi_forsyningsomr_hist');
         ds.execute({ command: 'read' }, function (rows: SupplyAreaRow[]) {
             setSupplyAreaData(rows);
+            let maxValue = Math.max.apply(
+                null,
+                rows.map((row) => {
+                    return row.aar;
+                })
+            );
+            setYear(maxValue.toString())
         });
 
         const dsArea = ses.getDatasource('ds_varmeplan_forsyningsomr');
@@ -135,7 +142,7 @@ const SupplyAreaPage: FC = () => {
             console.log('filteredAreaData: ', filteredAreaData!.shape_wkt);
             minimap.current.getMapControl().setMarkingGeometry(filteredAreaData!.shape_wkt, true, true, 0);
         } else if (area === undefined) {
-            console.log( 'area is undefined')
+            console.log('area is undefined');
         }
     };
 
@@ -196,8 +203,8 @@ const SupplyAreaPage: FC = () => {
             const filteredAreaData = areaData.find((item) => item.navn1203 === area);
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 0);
         } else if (area === undefined) {
-            console.log( 'area is undefined')
-            const mapExtent  = minimap.current.getMapControl()._mapConfig.getExtent();
+            console.log('area is undefined');
+            const mapExtent = minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
