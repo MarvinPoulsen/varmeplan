@@ -5,7 +5,7 @@ export interface Colors {
 
 const bgColors: string[] =
     [
-        'rgba(0, 204, 204, 0.9)',       // turquoise (0)
+        'rgba(0, 153, 204, 0.9)',       // Ball Blue (0)
         'rgba(0, 204, 0, 0.9)',         // green (1)
         'rgba(255, 255, 0, 0.9)',       // yellow (2)
         'rgba(255, 153, 0, 0.9)',       // orange (3)
@@ -45,6 +45,7 @@ const bgColors: string[] =
         'rgb(184, 134, 11)',     // DarkGoldenrod (37)
         'rgb(192, 192, 192)',     // Silver (38)
         'rgb(127, 255, 212)',     // Aquamarine (39)
+        'rgba(0, 204, 204, 0.9)',       // turquoise (40)
     ];
 const borderColors: string[] =
     [
