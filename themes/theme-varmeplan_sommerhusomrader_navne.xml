@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer>
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <layer datasource="ds_varmeplan_sommerhusomrader_navne" downloadable="true" editable="false" name="ds_varmeplan_sommerhusomrader_navne" type="POLYGON">
+        [datasource:ds_varmeplan_sommerhusomrader_navne.mapfile-datasource]
+        <class>
+            <name>Sommerhusområder</name>
+            <style>
+                <color>176 69 222</color>
+                <outlinecolor>0 0 0</outlinecolor>
+                <size>3</size>
+                <width>1</width>
+                <opacity>60</opacity>
+                <pattern>100000 0</pattern>
+            </style>
+        </class>
+    </layer>
+</theme>

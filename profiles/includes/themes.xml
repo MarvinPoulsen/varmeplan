@@ -18,6 +18,15 @@
         </themeselector>
         <downloadable>true</downloadable>
     </theme>
+    <theme module="varmeplan" name="theme-varmeplan_sommerhusomrader_navne">
+        <themeselector>
+			<displayname>Sommerhusområder</displayname>
+            <initialstate>hidden</initialstate>
+            <group>varmeplan</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>true</downloadable>
+    </theme>
     <theme module="varmeplan" name="theme-varmeplan_landsbyer_varmeplan">
         <themeselector>
 			<displayname>Landsbyer - varmeplan</displayname>

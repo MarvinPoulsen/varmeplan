@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <targetset>
+    <target name="varmeplan_sommerhusomrader_navne" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_sommerhusomrader_navne" themecondition="theme-varmeplan_sommerhusomrader_navne">
+        <datasource name="ds_varmeplan_sommerhusomrader_navne"/>
+    </target>
     <target name="varmeplan_landsbyer_varmeplan" themecondition="theme-varmeplan_landsbyer_varmeplan">
         <datasource name="ds_varmeplan_landsbyer_varmeplan"/>
     </target>
