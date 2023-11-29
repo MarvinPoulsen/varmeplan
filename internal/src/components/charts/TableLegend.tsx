@@ -1,8 +1,7 @@
 import React from 'react';
 import './charts.scss';
-import { toPrettyNumber, getBackgroundColor, getBorderColor } from '../../../utils';
+import { toPrettyNumber, getBackgroundColor, getBorderColor, TLData } from '../../../utils';
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { TLData } from '../../pages/SupplyArea';
 
 export interface TableLegendProps {
     data: TLData[];
@@ -149,9 +148,6 @@ const TableLegend = ({ data, onRowToggle }: TableLegendProps) => {
                     ))}
                 </tfoot>
             </table>
-            <button onClick={() => rerender()} className="border p-2">
-                Rerender
-            </button>
         </>
     );
 };

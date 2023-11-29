@@ -1,107 +1,20 @@
 import React, { FC, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
-import '../components/app/app.scss';
 import Map from '../components/minimap/Minimap';
-import { varmeplanMinimapId } from '../../config';
+import { supplyareaMinimapId } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
-import StackedbarNoLegend, { StackedDataSeries } from '../components/charts/StackedbarNoLegend';
+import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
+import { getYears, getAreas, HeatPlanRow, AnalysisParams, createTableData, createStackedbarData } from '../../utils';
 
 export interface AreaRow {
     navn1203: string;
     shape_wkt: { wkt: string };
 }
 
-export interface SupplyAreaRow {
-    id: number;
-    navn: string;
-    aar: string;
-    varme: string;
-    antalbygninger: string;
-    boligareal: string;
-    erhvervsareal: string;
-    shape_wkt: { wkt: string };
-}
-
-export interface TLData {
-    varme: string;
-    antalbygninger: number;
-    boligareal: number;
-    erhvervsareal: number;
-    on: boolean;
-}
-
-interface AnalysisParams {
-    title: string;
-    on: boolean;
-}
-
-const getYears = (data: SupplyAreaRow[]) => {
-    const uniqueYears = [...new Set(data.map((item) => item.aar))];
-    uniqueYears.sort(
-        (a, b) => b.localeCompare(a) //using String.prototype.localCompare()
-    );
-    return uniqueYears;
-};
-
-const getAreas = (data: SupplyAreaRow[]) => {
-    const uniqueAreas = [...new Set(data.map((item) => item.navn))];
-    uniqueAreas.sort(
-        (a, b) => b.localeCompare(a) //using String.prototype.localCompare()
-    );
-    return uniqueAreas;
-};
-
-const createTableData = (data: SupplyAreaRow[], analysisParams) => {
-    const tableDate: TLData[] = [];
-    for (let i = 0; i < analysisParams.length; i++) {
-        const analysisParam = analysisParams[i];
-        const varme = analysisParam.title;
-        const antalbygninger = data.find((item) => item.varme === varme)
-            ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + parseInt(cur.antalbygninger), 0)
-            : 0;
-        const boligareal = data.find((item) => item.varme === varme)
-            ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + parseInt(cur.boligareal), 0)
-            : 0;
-        const erhvervsareal = data.find((item) => item.varme === varme)
-            ? data.filter((item) => item.varme === varme).reduce((sum, cur) => sum + parseInt(cur.erhvervsareal), 0)
-            : 0;
-        const on = analysisParam.on;
-        tableDate.push({
-            varme,
-            antalbygninger,
-            boligareal,
-            erhvervsareal,
-            on,
-        });
-    }
-    return tableDate;
-};
-
-const createStackedbarData = (data: SupplyAreaRow[], analysisParams, years) => {
-    const stackedbarData: StackedDataSeries[] = [];
-    for (let i = 0; i < analysisParams.length; i++) {
-        const analysisParam = analysisParams[i];
-        const values: number[] = [];
-        for (let k = 0; k < years.length; k++) {
-            const year = years[k];
-            const dataByYear = data.filter((item) => item.aar === year);
-            const dataByTitle = dataByYear.filter((item) => item.varme === analysisParam.title);
-            const value = dataByTitle.reduce((sum, cur) => sum + parseInt(cur.antalbygninger), 0);
-            values.push(value);
-        }
-        stackedbarData.push({
-            name: analysisParam.title,
-            values,
-            stack: '0',
-        });
-    }
-    return stackedbarData;
-};
-
 const SupplyAreaPage: FC = () => {
     const minimap: any = useRef(null);
-    const [supplyAreaData, setSupplyAreaData] = useState<SupplyAreaRow[]>([]);
+    const [supplyAreaData, setSupplyAreaData] = useState<HeatPlanRow[]>([]);
     const [areaData, setAreaData] = useState<AreaRow[]>([]);
     const [year, setYear] = useState<string>('2011');
     const [area, setArea] = useState<string | undefined>(undefined);
@@ -118,8 +31,8 @@ const SupplyAreaPage: FC = () => {
     const onMapReady = (mm) => {
         minimap.current = mm;
         const ses = mm.getSession();
-        const ds = ses.getDatasource('ds_varmeplan_landsbyer_vi_forsyningsomr_hist');
-        ds.execute({ command: 'read' }, function (rows: SupplyAreaRow[]) {
+        const ds = ses.getDatasource('ds_varmeplan_vi_forsyningsomr_view');
+        ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
             setSupplyAreaData(rows);
             let maxValue = Math.max.apply(
                 null,
@@ -140,7 +53,8 @@ const SupplyAreaPage: FC = () => {
         if (area) {
             const filteredAreaData = areaData.find((item) => item.navn1203 === area);
             console.log('filteredAreaData: ', filteredAreaData!.shape_wkt);
-            minimap.current.getMapControl().setMarkingGeometry(filteredAreaData!.shape_wkt, true, true, 0);
+            // minimap.current.getMapControl().setMarkingGeometry(filteredAreaData!.shape_wkt, true, true, 100000);
+            minimap.current.getMapControl().setMarkingGeometry(filteredAreaData!.shape_wkt, true, true, 100);
         } else if (area === undefined) {
             console.log('area is undefined');
         }
@@ -201,7 +115,7 @@ const SupplyAreaPage: FC = () => {
         setArea(area);
         if (area) {
             const filteredAreaData = areaData.find((item) => item.navn1203 === area);
-            filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 0);
+            filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             console.log('area is undefined');
             const mapExtent = minimap.current.getMapControl()._mapConfig.getExtent();
@@ -223,7 +137,7 @@ const SupplyAreaPage: FC = () => {
             <div id="SupplyArea-tab-content" className="container">
                 <div className="block">
                     <div className="columns">
-                        <Map id={varmeplanMinimapId} name="supply-area" size="is-4" onReady={onMapReady} />
+                        <Map id={supplyareaMinimapId} name="supply-area" size="is-4" onReady={onMapReady} />
                         <div className="column is-8">
                             <div className="field is-grouped">
                                 {yearButtonRow}
@@ -261,11 +175,11 @@ const SupplyAreaPage: FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="block control">
+                            {/* <div className="block control">
                                 <button className="button" onClick={testing}>
                                     Testing
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

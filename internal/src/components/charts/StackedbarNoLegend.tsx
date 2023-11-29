@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { ChartData, ChartOptions, InteractionMode } from 'chart.js';
 import colors from '../../../colors';
+import { StackedDataSeries } from '../../../utils';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -19,11 +21,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-export interface StackedDataSeries{
-  name: string;
-  values: number[];
-  stack: string;
-};
+
 interface StackedbarProps {
   title?: string;
   categories: string[];
