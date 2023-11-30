@@ -9,6 +9,9 @@
     <target name="varmeplan_forsyningsomr" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_forsyningsomr" themecondition="theme-varmeplan_forsyningsomr">
         <datasource name="ds_varmeplan_forsyningsomr"/>
     </target>
+    <target name="varmeplan_invert_forsyningsomr" themecondition="theme-varmeplan_invert_forsyningsomr">
+        <datasource name="ds_varmeplan_invert_forsyningsomr"/>
+    </target>
     <target name="varmeplan_varmeinstallation" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_varmeinstallation" themecondition="theme-varmeplan_varmeinstallation">
         <datasource name="ds_varmeplan_varmeinstallation"/>
     </target>

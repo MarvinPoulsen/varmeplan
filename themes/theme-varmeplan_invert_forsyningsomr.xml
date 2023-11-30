@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer>
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <layer datasource="ds_varmeplan_invert_forsyningsomr" name="ds_varmeplan_invert_forsyningsomr" type="polygon">
+        [datasource:ds_varmeplan_invert_forsyningsomr.mapfile-datasource]
+        <class>
+            <style>
+                <color>0 0 0</color>
+                <opacity>75</opacity>
+            </style>
+        </class>
+    </layer>
+</theme>

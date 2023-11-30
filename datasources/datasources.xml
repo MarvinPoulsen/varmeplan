@@ -12,6 +12,9 @@
     <datasource displayname="forsyningsomr" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_forsyningsomr">
         <table geometrycolumn="geom" name="forsyningsomr" pkcolumn="id" schema="varmeplan"/>
     </datasource>
+    <datasource displayname="invert_forsyningsomr" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_invert_forsyningsomr">
+        <table geometrycolumn="geom" name="invert_forsyningsomr" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
     <datasource displayname="sommerhusomrader_navne" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_sommerhusomrader_navne">
         <table geometrycolumn="geom" name="sommerhusomrader_navne" pkcolumn="id" schema="varmeplan"/>
     </datasource>
