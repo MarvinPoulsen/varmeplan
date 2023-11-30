@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer>
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <layer datasource="ds_varmeplan_forsyningsomr_punkt_view" downloadable="false" editable="false" name="ds_varmeplan_forsyningsomr_punkt_view" type="POINT">
+        [datasource:ds_varmeplan_forsyningsomr_punkt_view.mapfile-datasource]
+        <class>
+            <expression>/^Fjernvarme/blokvarme$/</expression>
+            <name>Fjernvarme/blokvarme</name>
+            <style>
+                <color>0 153 204</color>
+                <size>5</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+        <class>
+            <expression>/^Varmepumpe$/</expression>
+            <name>Varmepumpe</name>
+            <style>
+                <color>0 204 0</color>
+                <size>5</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+        <class>
+            <expression>/^Elvarme$/</expression>
+            <name>Elvarme</name>
+            <style>
+                <color>255 255 0</color>
+                <size>5</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+		<class>
+            <expression>/^Biobrændsel$/</expression>
+            <name>Biobrændsel</name>
+            <style>
+                <color>255 153 0</color>
+                <size>5</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+		<class>
+            <expression>/^Olie$/</expression>
+            <name>Olie</name>
+            <style>
+                <color>255 51 51</color>
+                <size>5</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+		<class>
+            <expression>/^Andet$/</expression>
+            <name>Andet</name>
+            <style>
+                <color>102 102 255</color>
+                <size>5</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+        <classitem>varme</classitem>
+    </layer>
+</theme>

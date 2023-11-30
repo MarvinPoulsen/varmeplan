@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <targetset>
-    <target name="varmeplan_sommerhusomrader_navne" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_sommerhusomrader_navne" themecondition="theme-varmeplan_sommerhusomrader_navne">
-        <datasource name="ds_varmeplan_sommerhusomrader_navne"/>
-    </target>
-    <target name="varmeplan_landsbyer_varmeplan" themecondition="theme-varmeplan_landsbyer_varmeplan">
-        <datasource name="ds_varmeplan_landsbyer_varmeplan"/>
+    <target name="varmeplan_forsyningsomr_punkt_view" themecondition="theme-varmeplan_forsyningsomr_punkt_view">
+        <datasource name="ds_varmeplan_forsyningsomr_punkt_view"/>
     </target>
     <target name="varmeplan_forsyningsomr" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_forsyningsomr" themecondition="theme-varmeplan_forsyningsomr">
         <datasource name="ds_varmeplan_forsyningsomr"/>
     </target>
     <target name="varmeplan_invert_forsyningsomr" themecondition="theme-varmeplan_invert_forsyningsomr">
         <datasource name="ds_varmeplan_invert_forsyningsomr"/>
+    </target>
+	
+    <target name="varmeplan_sommerhusomrader_navne" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_sommerhusomrader_navne" themecondition="theme-varmeplan_sommerhusomrader_navne">
+        <datasource name="ds_varmeplan_sommerhusomrader_navne"/>
+    </target>
+    <target name="varmeplan_landsbyer_varmeplan" themecondition="theme-varmeplan_landsbyer_varmeplan">
+        <datasource name="ds_varmeplan_landsbyer_varmeplan"/>
     </target>
     <target name="varmeplan_varmeinstallation" presentation="[module:varmeplan.dir]/presentations/pres-ds_varmeplan_varmeinstallation" themecondition="theme-varmeplan_varmeinstallation">
         <datasource name="ds_varmeplan_varmeinstallation"/>

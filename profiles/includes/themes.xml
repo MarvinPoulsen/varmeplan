@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <themes>
-    <theme module="varmeplan" name="theme-varmeplan_varmeinstallation">
+    <theme module="varmeplan" name="theme-varmeplan_forsyningsomr_punkt_view">
         <themeselector>
-			<displayname>Varmeinstallation</displayname>
+			<displayname>Varmeforsyningsmiddel</displayname>
             <initialstate>hidden</initialstate>
             <group>varmeplan</group>
             <selectable>true</selectable>
@@ -21,6 +21,15 @@
     <theme module="varmeplan" name="theme-varmeplan_invert_forsyningsomr">
         <themeselector>
 			<displayname>Udenfor Forsyningsområder - fjernvarme</displayname>
+            <initialstate>hidden</initialstate>
+            <group>varmeplan</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>true</downloadable>
+    </theme>
+    <theme module="varmeplan" name="theme-varmeplan_varmeinstallation">
+        <themeselector>
+			<displayname>Varmeinstallation</displayname>
             <initialstate>hidden</initialstate>
             <group>varmeplan</group>
             <selectable>true</selectable>
