@@ -49,17 +49,6 @@ const SupplyAreaPage: FC = () => {
         });
     };
 
-    const testing = () => {
-        if (area) {
-            const filteredAreaData = areaData.find((item) => item.navn1203 === area);
-            console.log('filteredAreaData: ', filteredAreaData!.shape_wkt);
-            // minimap.current.getMapControl().setMarkingGeometry(filteredAreaData!.shape_wkt, true, true, 100000);
-            minimap.current.getMapControl().setMarkingGeometry(filteredAreaData!.shape_wkt, true, true, 100);
-        } else if (area === undefined) {
-            console.log('area is undefined');
-        }
-    };
-
     const onHeatingAgentsToggle = (rowIndex: number) => {
         const updatedHeatingAgents = [...heatingAgents];
         updatedHeatingAgents[rowIndex].on = !updatedHeatingAgents[rowIndex].on;
@@ -110,14 +99,13 @@ const SupplyAreaPage: FC = () => {
     }
 
     const handleAreaFilter = (event) => {
-        console.log('event: ', event);
         const area = event ? event.value : undefined;
         setArea(area);
         if (area) {
             const filteredAreaData = areaData.find((item) => item.navn1203 === area);
-            filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
+            filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, false, 300);
         } else if (area === undefined) {
-            console.log('area is undefined');
+            minimap.current.getMapControl().setMarkingGeometry();
             const mapExtent = minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
@@ -137,7 +125,7 @@ const SupplyAreaPage: FC = () => {
             <div id="SupplyArea-tab-content" className="container">
                 <div className="block">
                     <div className="columns">
-                        <Map id={supplyareaMinimapId} name="supply-area" size="is-4" onReady={onMapReady} />
+                        <Map id={supplyareaMinimapId} name="supply-area" size="is-4 box" onReady={onMapReady} />
                         <div className="column is-8">
                             <div className="field is-grouped">
                                 {yearButtonRow}
@@ -162,7 +150,7 @@ const SupplyAreaPage: FC = () => {
                                         )}
                                     </div>
                                     <div className="column is-4">
-                                        <div className="block stackedbar-no-legend">
+                                        <div className="block stackedbar-no-legend box">
                                             {supplyAreaStackedbar && (
                                                 <StackedbarNoLegend
                                                     title={area ? area : 'Alle forsyningesområder'}
@@ -175,11 +163,6 @@ const SupplyAreaPage: FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="block control">
-                                <button className="button" onClick={testing}>
-                                    Testing
-                                </button>
-                            </div> */}
                         </div>
                     </div>
                 </div>
