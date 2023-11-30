@@ -3,6 +3,11 @@
     <version>2023-10-26 10:39:22</version>
     <lastupdated>Thu Oct 26 12:12:35 CEST 2023</lastupdated>
     <since>1.0.0</since>
+
+    <!-- <param name="module.minimap2.searchresult.layer.polygon.color">0,102,0</param> -->
+    <param name="module.minimap2.searchresult.layer.polygon.opacity">0</param>
+    <!-- <param name="module.minimap2.searchresult.layer.polygon.outline.color">255,255,0</param> -->
+    <param name="module.minimap2.searchresult.layer.line.color">255,204,255</param>
 	
     <makedir dir="[cbinfo.wwwroot.dir]/modules/varmeplan" />
     <copydir fromdir="[module:varmeplan.dir]/dist" todir="[cbinfo.wwwroot.dir]/modules/varmeplan" replacetext="true"/>
