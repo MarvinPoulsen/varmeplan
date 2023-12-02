@@ -2,6 +2,7 @@
 import colors from './colors';
 
 export interface HeatPlanRow {
+    sekvens: any;
     id: number;
     navn: string;
     aar: string;
@@ -62,6 +63,15 @@ export const getYears = (data: HeatPlanRow[]) => {
     return uniqueYears;
 };
 
+export const getAnalysisParams = (data: HeatPlanRow[]) => {
+    data.sort((a, b) => a.sekvens - b.sekvens);
+    const uniqueAnalysisParams = [...new Set(data.map((item) => item.varme))];
+    //     const analysisParams = uniqueAnalysisParams.map(item => {return {title: item, on: true}});
+    // return analysisParams;
+    return uniqueAnalysisParams;
+};
+
+
 export const getAreas = (data: HeatPlanRow[]) => {
     const uniqueAreas = [...new Set(data.map((item) => item.navn))];
     uniqueAreas.sort(
@@ -69,7 +79,6 @@ export const getAreas = (data: HeatPlanRow[]) => {
     );
     return uniqueAreas;
 };
-
 
 
 export const createTableData = (data: HeatPlanRow[], analysisParams: AnalysisParams[]) => {
