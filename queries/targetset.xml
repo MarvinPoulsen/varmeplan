@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <targetset>
+
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/queries/targetset_forsyningsomr.xml"/>
+
+
     <target name="varmeplan_forsyningsomr_punkt_view" themecondition="theme-varmeplan_forsyningsomr_punkt_view">
         <datasource name="ds_varmeplan_forsyningsomr_punkt_view"/>
     </target>

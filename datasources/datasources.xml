@@ -6,6 +6,8 @@
         <pwd>[cbinfo.connection.lolland_postgis.pwd]</pwd>
     </endpoint>
    
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_forsyningsomr.xml"/>
+	
     <datasource displayname="forsyningsomr_punkt_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_forsyningsomr_punkt_view">
         <table geometrycolumn="geom" name="forsyningsomr_punkt_view" pkcolumn="id" schema="varmeplan"/>
     </datasource>

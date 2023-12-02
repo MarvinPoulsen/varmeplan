@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <themes>
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/profiles/includes/themes_forsyningsomr.xml"/>
+
     <theme module="varmeplan" name="theme-varmeplan_forsyningsomr_punkt_view">
         <themeselector>
 			<displayname>Varmeforsyningsmiddel</displayname>

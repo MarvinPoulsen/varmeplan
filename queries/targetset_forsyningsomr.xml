@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<targetset>
+    <target name="varmeplan_forsyningsomr_fjernvarme_view" themecondition="theme-varmeplan_forsyningsomr_fjernvarme_view">
+        <datasource name="ds_varmeplan_forsyningsomr_fjernvarme_view"/>
+    </target>
+    <target name="varmeplan_forsyningsomr_varmepumpe_view" themecondition="theme-varmeplan_forsyningsomr_varmepumpe_view">
+        <datasource name="ds_varmeplan_forsyningsomr_varmepumpe_view"/>
+    </target>
+    <target name="varmeplan_forsyningsomr_elvarme_view" themecondition="theme-varmeplan_forsyningsomr_elvarme_view">
+        <datasource name="ds_varmeplan_forsyningsomr_elvarme_view"/>
+    </target>
+    <target name="varmeplan_forsyningsomr_biobraendsel_view" themecondition="theme-varmeplan_forsyningsomr_biobraendsel_view">
+        <datasource name="ds_varmeplan_forsyningsomr_biobraendsel_view"/>
+    </target>
+    <target name="varmeplan_forsyningsomr_olie_view" themecondition="theme-varmeplan_forsyningsomr_olie_view">
+        <datasource name="ds_varmeplan_forsyningsomr_olie_view"/>
+    </target>
+    <target name="varmeplan_forsyningsomr_andet_view" themecondition="theme-varmeplan_forsyningsomr_andet_view">
+        <datasource name="ds_varmeplan_forsyningsomr_andet_view"/>
+    </target>
+</targetset>
