@@ -9,6 +9,8 @@ import CottageAreasPage from '../../pages/CottageAreas';
 import OpenCountryPage from '../../pages/OpenCountry';
 
 const App: FC = () => {
+    const paramCheck = '[module.varmeplan.supplyarea.themegroup]';
+    console.log('paramCheck: ',paramCheck)
     return (
         <>
             <section className="hero is-primary is-small">

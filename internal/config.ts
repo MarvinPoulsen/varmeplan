@@ -13,3 +13,23 @@ export const cottageareasMinimapId = cottageareasMinimapIdParam.includes('[') ? 
 const opencountryMinimapIdParam = '[module.varmeplan.opencountry.minimapid]';
 const opencountryMinimapIdDev = '5490d72f-1077-4969-8c3c-1e6cc7fd012f';
 export const opencountryMinimapId = opencountryMinimapIdParam.includes('[') ? opencountryMinimapIdDev : opencountryMinimapIdParam;
+
+
+const supplyareaDataParam = '[module.varmeplan.supplyarea.data]';
+const supplyareaDataDev = 'ds_varmeplan_vi_forsyningsomr_view';
+export const supplyareaData = supplyareaDataParam.includes('[') ? supplyareaDataDev : supplyareaDataParam;
+
+const supplyareaAreaParam = '[module.varmeplan.supplyarea.area]';
+const supplyareaAreaDev = 'ds_varmeplan_forsyningsomr';
+export const supplyareaArea = supplyareaAreaParam.includes('[') ? supplyareaAreaDev : supplyareaAreaParam;
+
+
+const supplyareaThemegroupParam = '[module.varmeplan.supplyarea.themegroup]';
+const supplyareaThemegroupDev = 'forsyningsomr';
+export const supplyareaThemegroup = supplyareaThemegroupParam.includes('[') ? supplyareaThemegroupDev : supplyareaThemegroupParam;
+
+
+
+const supplyareaTempParam = '[module.varmeplan.supplyarea.themegroup]';
+const supplyareaTempDev = 'forsyningsomr';
+export const supplyareaTemp = supplyareaTempParam.includes('[') ? supplyareaTempDev : supplyareaTempParam;
