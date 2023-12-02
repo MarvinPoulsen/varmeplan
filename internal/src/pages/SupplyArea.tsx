@@ -1,11 +1,19 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
-import { supplyareaMinimapId } from '../../config';
+import { supplyareaArea, supplyareaData, supplyareaMinimapId, supplyareaThemegroup } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
-import { getYears, getAreas, HeatPlanRow, AnalysisParams, createTableData, createStackedbarData } from '../../utils';
+import {
+    getYears,
+    getAreas,
+    HeatPlanRow,
+    AnalysisParams,
+    createTableData,
+    createStackedbarData,
+    getAnalysisParams,
+} from '../../utils';
 
 export interface AreaRow {
     navn1203: string;
@@ -16,22 +24,76 @@ const SupplyAreaPage: FC = () => {
     const minimap: any = useRef(null);
     const [supplyAreaData, setSupplyAreaData] = useState<HeatPlanRow[]>([]);
     const [areaData, setAreaData] = useState<AreaRow[]>([]);
-    const [year, setYear] = useState<string>('2011');
+    const [year, setYear] = useState<string>('');
     const [area, setArea] = useState<string | undefined>(undefined);
+    const [mapThemes, setMapThemes] = useState<string[]>([]);
+    const [heatingAgents, setHeatingAgents] = useState<AnalysisParams[]>([]);
 
-    const [heatingAgents, setHeatingAgents] = useState<AnalysisParams[]>([
-        { title: 'Fjernvarme/blokvarme', on: true },
-        { title: 'Varmepumpe', on: true },
-        { title: 'Elvarme', on: true },
-        { title: 'Biobrændsel', on: true },
-        { title: 'Olie', on: true },
-        { title: 'Andet', on: true },
-    ]);
+    useEffect(() => {
+        if (minimap.current) {
+            const mm = minimap.current;
+            const ses = mm.getSession();
+            if (mapThemes.length > 0){
+                for (const theme of mapThemes){
+                    const getTheme = mm.getTheme(theme)
+                    const datasource = getTheme.getDatasources()[0]
+                    if (area){
+                        ses.getDatasource(datasource).setFilterParams({ aar: year, navn: area }, //setFilterParams({ [aar]: year, [navn]: area });
+                            (response) => {
+                                getTheme.repaint()
+                                if (response.exception)
+                                    console.log(response.exception)
+                            }
+                        );
+                    } else {                   
+                        ses.setProperties("datasource_filter_state",datasource,{aar: "false", navn: "true"}, 
+                        (response) => {
+                            getTheme.repaint()
+                            if (response.exception)
+                                console.log(response.exception)
+                        }
+                        );     
+                        ses.getDatasource(datasource).setFilterParams({ aar: year},
+                            (response) => {
+                                getTheme.repaint()
+                                if (response.exception)
+                                    console.log(response.exception)
+                            }
+                        );
+                    }
+                }
+            }
+                // if (area) {
+                //     var req = minimap.current.getSession().createPageRequest('set-datasource-defaults');
+                //     req.call(
+                //         {
+                //             datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view',
+                //             names: 'aar,navn',
+                //             values: year + ',' + area,
+                //         },
+                //         function (response) {
+                //             minimap.current.getTheme('theme-varmeplan_forsyningsomr_fjernvarme_view').repaint();
+                //         }
+                //     );
+                // } else {
+                //     var req = minimap.current.getSession().createPageRequest('clear-datasource-defaults');
+                //     req.call({ datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view' }, function (response) {
+                //         var req = minimap.current.getSession().createPageRequest('set-datasource-defaults');
+                //         req.call(
+                //             { datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view', names: 'aar', values: year },
+                //             function (response) {
+                //                 minimap.current.getTheme('theme-varmeplan_forsyningsomr_fjernvarme_view').repaint();
+                //             }
+                //         );
+                //     });
+                // }
+        }
+    }, [area, year]);
 
     const onMapReady = (mm) => {
         minimap.current = mm;
         const ses = mm.getSession();
-        const ds = ses.getDatasource('ds_varmeplan_vi_forsyningsomr_view');
+        const ds = ses.getDatasource(supplyareaData);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
             setSupplyAreaData(rows);
             let maxValue = Math.max.apply(
@@ -40,20 +102,39 @@ const SupplyAreaPage: FC = () => {
                     return row.aar;
                 })
             );
-            setYear(maxValue.toString())
+            setYear(maxValue.toString());
+            const analysisParams = getAnalysisParams(rows)
+            let params:AnalysisParams[] = [];
+            if (analysisParams.length >0 ){
+                for (let i=0; i<analysisParams.length; i++){
+                    const analysisParam = analysisParams[i]
+                    params.push({title: analysisParam, on: true})
+                }
+                setHeatingAgents(params);
+            }
         });
 
-        const dsArea = ses.getDatasource('ds_varmeplan_forsyningsomr');
+        const dsArea = ses.getDatasource(supplyareaArea);
         dsArea.execute({ command: 'read' }, function (areaRows: AreaRow[]) {
             setAreaData(areaRows);
         });
-    };
+        const themesList = minimap.current
+            .getThemeContainer()
+            .getThemeGroup(supplyareaThemegroup)
+            ._elements.map((item) => item.name);
+        setMapThemes(themesList);
 
+    };
     const onHeatingAgentsToggle = (rowIndex: number) => {
         const updatedHeatingAgents = [...heatingAgents];
         updatedHeatingAgents[rowIndex].on = !updatedHeatingAgents[rowIndex].on;
         setHeatingAgents(updatedHeatingAgents);
-        // handleThemeToggle(rowIndex)
+        handleThemeToggle(rowIndex);
+    };
+
+    const handleThemeToggle = (event) => {
+        const theme = mapThemes[event];
+        minimap.current.getTheme(theme).toggle();
     };
 
     const filteredByArea =
@@ -82,28 +163,12 @@ const SupplyAreaPage: FC = () => {
         );
     }
 
-    const areaButtonRow: JSX.Element[] = [];
-    for (let i = 0; i < uniqueAreas.length; i++) {
-        const uniqueArea = uniqueAreas[i];
-        areaButtonRow.push(
-            <div className="control" key={uniqueArea}>
-                <button
-                    className={area === uniqueArea ? 'button is-info is-active' : 'button is-info is-light'}
-                    onClick={() => setArea(uniqueArea)}
-                    value={uniqueArea}
-                >
-                    {uniqueArea}
-                </button>
-            </div>
-        );
-    }
-
     const handleAreaFilter = (event) => {
         const area = event ? event.value : undefined;
         setArea(area);
         if (area) {
             const filteredAreaData = areaData.find((item) => item.navn1203 === area);
-            filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, false, 300);
+            filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
             const mapExtent = minimap.current.getMapControl()._mapConfig.getExtent();
