@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer>
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <layer datasource="ds_varmeplan_landsbyer_biobraendsel_view" downloadable="false" editable="false" name="ds_varmeplan_landsbyer_biobraendsel_view" type="POINT">
+        [datasource:ds_varmeplan_landsbyer_biobraendsel_view.mapfile-datasource]
+        <class>
+            <name>Biobrændsel</name>
+            <style>
+                <color>255 153 0</color>
+                <size>5</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+    </layer>
+</theme>

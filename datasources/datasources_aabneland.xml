@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<datasources>
+    <datasource displayname="aabneland_fjernvarme_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_aabneland_fjernvarme_view">
+        <table geometrycolumn="geom" name="aabneland_fjernvarme_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="aabneland_varmepumpe_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_aabneland_varmepumpe_view">
+        <table geometrycolumn="geom" name="aabneland_varmepumpe_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="aabneland_elvarme_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_aabneland_elvarme_view">
+        <table geometrycolumn="geom" name="aabneland_elvarme_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="aabneland_biobraendsel_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_aabneland_biobraendsel_view">
+        <table geometrycolumn="geom" name="aabneland_biobraendsel_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="aabneland_olie_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_aabneland_olie_view">
+        <table geometrycolumn="geom" name="aabneland_olie_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="aabneland_andet_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_aabneland_andet_view">
+        <table geometrycolumn="geom" name="aabneland_andet_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+</datasources>

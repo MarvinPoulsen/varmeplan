@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <targetset>
 
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/queries/targetset_aabneland.xml"/>
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/queries/targetset_sommerhusomr.xml"/>
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/queries/targetset_landsbyer.xml"/>
 	<include onlychildnodes="true" src="[module:varmeplan.dir]/queries/targetset_forsyningsomr.xml"/>
 
 

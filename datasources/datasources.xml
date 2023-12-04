@@ -6,6 +6,9 @@
         <pwd>[cbinfo.connection.lolland_postgis.pwd]</pwd>
     </endpoint>
    
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_aabneland.xml"/>
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_sommerhusomr.xml"/>
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_landsbyer.xml"/>
 	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_forsyningsomr.xml"/>
 	
     <datasource displayname="forsyningsomr_punkt_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_forsyningsomr_punkt_view">

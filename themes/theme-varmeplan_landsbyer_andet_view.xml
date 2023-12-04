@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<theme>
+    <clientlayers>
+        <clientlayer>
+            <singletile>true</singletile>
+        </clientlayer>
+    </clientlayers>
+    <layer datasource="ds_varmeplan_landsbyer_andet_view" downloadable="false" editable="false" name="ds_varmeplan_landsbyer_andet_view" type="POINT">
+        [datasource:ds_varmeplan_landsbyer_andet_view.mapfile-datasource]
+        <class>
+            <name>Andet</name>
+            <style>
+                <color>102 102 255</color>
+                <size>5</size>
+                <symbol>square</symbol>
+            </style>
+        </class>
+    </layer>
+</theme>

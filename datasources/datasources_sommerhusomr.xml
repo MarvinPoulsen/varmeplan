@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<datasources>
+    <datasource displayname="sommerhusomr_fjernvarme_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_sommerhusomr_fjernvarme_view">
+        <table geometrycolumn="geom" name="sommerhusomr_fjernvarme_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+                <eq id="navn" matchcase="true">
+                    <property name="navn"/>
+                    <literal datatype="string" value="[navn]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="sommerhusomr_varmepumpe_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_sommerhusomr_varmepumpe_view">
+        <table geometrycolumn="geom" name="sommerhusomr_varmepumpe_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+                <eq id="navn" matchcase="true">
+                    <property name="navn"/>
+                    <literal datatype="string" value="[navn]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="sommerhusomr_elvarme_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_sommerhusomr_elvarme_view">
+        <table geometrycolumn="geom" name="sommerhusomr_elvarme_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+                <eq id="navn" matchcase="true">
+                    <property name="navn"/>
+                    <literal datatype="string" value="[navn]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="sommerhusomr_biobraendsel_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_sommerhusomr_biobraendsel_view">
+        <table geometrycolumn="geom" name="sommerhusomr_biobraendsel_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+                <eq id="navn" matchcase="true">
+                    <property name="navn"/>
+                    <literal datatype="string" value="[navn]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="sommerhusomr_olie_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_sommerhusomr_olie_view">
+        <table geometrycolumn="geom" name="sommerhusomr_olie_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+                <eq id="navn" matchcase="true">
+                    <property name="navn"/>
+                    <literal datatype="string" value="[navn]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+    <datasource displayname="sommerhusomr_andet_view" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_sommerhusomr_andet_view">
+        <table geometrycolumn="geom" name="sommerhusomr_andet_view" pkcolumn="id" schema="varmeplan"/>
+        <filterconstruct>
+            <filter>
+                <eq id="aar" matchcase="true">
+                    <property name="aar"/>
+                    <literal datatype="string" value="[aar]"/>
+                </eq>
+                <eq id="navn" matchcase="true">
+                    <property name="navn"/>
+                    <literal datatype="string" value="[navn]"/>
+                </eq>
+            </filter>
+        </filterconstruct>
+    </datasource>
+</datasources>
