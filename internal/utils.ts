@@ -1,5 +1,5 @@
-
 import colors from './colors';
+import { forceAnalysis } from './config.ts'
 
 export interface HeatPlanRow {
     sekvens: any;
@@ -25,35 +25,35 @@ export interface TLData {
     on: boolean;
 }
 
-export interface StackedDataSeries{
-  name: string;
-  values: number[];
-  stack: string;
-};
+export interface StackedDataSeries {
+    name: string;
+    values: number[];
+    stack: string;
+}
 
 export const toPrettyNumber = (numValue) => {
-	return new Intl.NumberFormat().format(numValue);
-}
+    return new Intl.NumberFormat().format(numValue);
+};
 
-export const getBackgroundColor = (start)=>{
-	if (start){
-	  const arr1 = colors.bgColors.slice(start);
-	  const arr2 = colors.bgColors.slice(0,start);
-	  return arr1.concat(arr2); 
-	} else {
-	  return colors.bgColors;
-	}
-}
+export const getBackgroundColor = (start) => {
+    if (start) {
+        const arr1 = colors.bgColors.slice(start);
+        const arr2 = colors.bgColors.slice(0, start);
+        return arr1.concat(arr2);
+    } else {
+        return colors.bgColors;
+    }
+};
 
-export const getBorderColor = (start)=>{
-  if (start){
-    const arr1 = colors.borderColors.slice(start);
-    const arr2 = colors.borderColors.slice(0,start);
-    return arr1.concat(arr2); 
-  } else {
-    return colors.borderColors;
-  }
-}
+export const getBorderColor = (start) => {
+    if (start) {
+        const arr1 = colors.borderColors.slice(start);
+        const arr2 = colors.borderColors.slice(0, start);
+        return arr1.concat(arr2);
+    } else {
+        return colors.borderColors;
+    }
+};
 
 export const getYears = (data: HeatPlanRow[]) => {
     const uniqueYears = [...new Set(data.map((item) => item.aar))];
@@ -64,13 +64,19 @@ export const getYears = (data: HeatPlanRow[]) => {
 };
 
 export const getAnalysisParams = (data: HeatPlanRow[]) => {
-    data.sort((a, b) => a.sekvens - b.sekvens);
-    const uniqueAnalysisParams = [...new Set(data.map((item) => item.varme))];
-    //     const analysisParams = uniqueAnalysisParams.map(item => {return {title: item, on: true}});
-    // return analysisParams;
-    return uniqueAnalysisParams;
+    if (forceAnalysis) {
+        console.log('forceAnalysis: ', forceAnalysis);
+        return forceAnalysis;
+    } else {
+        data.sort((a, b) => a.sekvens - b.sekvens);
+        const uniqueAnalysisParams = [...new Set(data.map((item) => item.varme))];
+        //     const analysisParams = uniqueAnalysisParams.map(item => {return {title: item, on: true}});
+        // return analysisParams;
+        console.log('forceAnalysis: ', forceAnalysis);
+        console.log('uniqueAnalysisParams: ', uniqueAnalysisParams);
+        return uniqueAnalysisParams;
+    }
 };
-
 
 export const getAreas = (data: HeatPlanRow[]) => {
     const uniqueAreas = [...new Set(data.map((item) => item.navn))];
@@ -79,7 +85,6 @@ export const getAreas = (data: HeatPlanRow[]) => {
     );
     return uniqueAreas;
 };
-
 
 export const createTableData = (data: HeatPlanRow[], analysisParams: AnalysisParams[]) => {
     const tableDate: TLData[] = [];
