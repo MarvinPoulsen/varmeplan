@@ -1,7 +1,15 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
-import { supplyareaArea, supplyareaData, supplyareaMinimapId, supplyareaThemegroup } from '../../config';
+import {
+    supplyareaArea,
+    supplyareaButtonFilter,
+    supplyareaData,
+    supplyareaMinimapId,
+    supplyareaSelectFilter,
+    supplyareaThemegroup,
+    supplyareaZoomToArea,
+} from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
@@ -33,60 +41,59 @@ const SupplyAreaPage: FC = () => {
         if (minimap.current) {
             const mm = minimap.current;
             const ses = mm.getSession();
-            if (mapThemes.length > 0){
-                for (const theme of mapThemes){
-                    const getTheme = mm.getTheme(theme)
-                    const datasource = getTheme.getDatasources()[0]
-                    if (area){
-                        ses.getDatasource(datasource).setFilterParams({ aar: year, navn: area }, //setFilterParams({ [aar]: year, [navn]: area });
+            if (mapThemes.length > 0) {
+                for (const theme of mapThemes) {
+                    const getTheme = mm.getTheme(theme);
+                    const datasource = getTheme.getDatasources()[0];
+                    if (area) {
+                        ses.getDatasource(datasource).setFilterParams(
+                            { [supplyareaButtonFilter]: year, [supplyareaSelectFilter]: area }, //setFilterParams({ [aar]: year, [navn]: area });
                             (response) => {
-                                getTheme.repaint()
-                                if (response.exception)
-                                    console.log(response.exception)
+                                getTheme.repaint();
+                                if (response.exception) console.log(response.exception);
                             }
                         );
-                    } else {                   
-                        ses.setProperties("datasource_filter_state",datasource,{aar: "false", navn: "true"}, 
-                        (response) => {
-                            getTheme.repaint()
-                            if (response.exception)
-                                console.log(response.exception)
-                        }
-                        );     
-                        ses.getDatasource(datasource).setFilterParams({ aar: year},
+                    } else {
+                        ses.setProperties(
+                            'datasource_filter_state',
+                            datasource,
+                            { [supplyareaButtonFilter]: 'false', [supplyareaSelectFilter]: 'true' },
                             (response) => {
-                                getTheme.repaint()
-                                if (response.exception)
-                                    console.log(response.exception)
+                                getTheme.repaint();
+                                if (response.exception) console.log(response.exception);
                             }
                         );
+                        ses.getDatasource(datasource).setFilterParams({ [supplyareaButtonFilter]: year }, (response) => {
+                            getTheme.repaint();
+                            if (response.exception) console.log(response.exception);
+                        });
                     }
                 }
             }
-                // if (area) {
-                //     var req = minimap.current.getSession().createPageRequest('set-datasource-defaults');
-                //     req.call(
-                //         {
-                //             datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view',
-                //             names: 'aar,navn',
-                //             values: year + ',' + area,
-                //         },
-                //         function (response) {
-                //             minimap.current.getTheme('theme-varmeplan_forsyningsomr_fjernvarme_view').repaint();
-                //         }
-                //     );
-                // } else {
-                //     var req = minimap.current.getSession().createPageRequest('clear-datasource-defaults');
-                //     req.call({ datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view' }, function (response) {
-                //         var req = minimap.current.getSession().createPageRequest('set-datasource-defaults');
-                //         req.call(
-                //             { datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view', names: 'aar', values: year },
-                //             function (response) {
-                //                 minimap.current.getTheme('theme-varmeplan_forsyningsomr_fjernvarme_view').repaint();
-                //             }
-                //         );
-                //     });
-                // }
+            // if (area) {
+            //     var req = minimap.current.getSession().createPageRequest('set-datasource-defaults');
+            //     req.call(
+            //         {
+            //             datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view',
+            //             names: 'aar,navn',
+            //             values: year + ',' + area,
+            //         },
+            //         function (response) {
+            //             minimap.current.getTheme('theme-varmeplan_forsyningsomr_fjernvarme_view').repaint();
+            //         }
+            //     );
+            // } else {
+            //     var req = minimap.current.getSession().createPageRequest('clear-datasource-defaults');
+            //     req.call({ datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view' }, function (response) {
+            //         var req = minimap.current.getSession().createPageRequest('set-datasource-defaults');
+            //         req.call(
+            //             { datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view', names: 'aar', values: year },
+            //             function (response) {
+            //                 minimap.current.getTheme('theme-varmeplan_forsyningsomr_fjernvarme_view').repaint();
+            //             }
+            //         );
+            //     });
+            // }
         }
     }, [area, year]);
 
@@ -99,16 +106,16 @@ const SupplyAreaPage: FC = () => {
             let maxValue = Math.max.apply(
                 null,
                 rows.map((row) => {
-                    return row.aar;
+                    return row[supplyareaButtonFilter];
                 })
             );
             setYear(maxValue.toString());
-            const analysisParams = getAnalysisParams(rows)
-            let params:AnalysisParams[] = [];
-            if (analysisParams.length >0 ){
-                for (let i=0; i<analysisParams.length; i++){
-                    const analysisParam = analysisParams[i]
-                    params.push({title: analysisParam, on: true})
+            const analysisParams = getAnalysisParams(rows);
+            let params: AnalysisParams[] = [];
+            if (analysisParams.length > 0) {
+                for (let i = 0; i < analysisParams.length; i++) {
+                    const analysisParam = analysisParams[i];
+                    params.push({ title: analysisParam, on: true });
                 }
                 setHeatingAgents(params);
             }
@@ -123,7 +130,6 @@ const SupplyAreaPage: FC = () => {
             .getThemeGroup(supplyareaThemegroup)
             ._elements.map((item) => item.name);
         setMapThemes(themesList);
-
     };
     const onHeatingAgentsToggle = (rowIndex: number) => {
         const updatedHeatingAgents = [...heatingAgents];
@@ -138,10 +144,14 @@ const SupplyAreaPage: FC = () => {
     };
 
     const filteredByArea =
-        supplyAreaData.length > 0 ? (area ? supplyAreaData.filter((item) => item.navn === area) : supplyAreaData) : [];
+        supplyAreaData.length > 0
+            ? area
+                ? supplyAreaData.filter((item) => item[supplyareaSelectFilter] === area)
+                : supplyAreaData
+            : [];
 
-    const filteredByYear = filteredByArea.length > 0 ? filteredByArea.filter((item) => item.aar === year) : [];
-
+    const filteredByYear =
+        filteredByArea.length > 0 ? filteredByArea.filter((item) => item[supplyareaButtonFilter] === year) : [];
     const supplyAreaTable = filteredByYear.length > 0 && createTableData(filteredByYear, heatingAgents);
     const uniqueYears = getYears(supplyAreaData);
     const uniqueAreas = getAreas(supplyAreaData);
@@ -167,7 +177,7 @@ const SupplyAreaPage: FC = () => {
         const area = event ? event.value : undefined;
         setArea(area);
         if (area) {
-            const filteredAreaData = areaData.find((item) => item.navn1203 === area);
+            const filteredAreaData = areaData.find((item) => item[supplyareaZoomToArea] === area);
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
