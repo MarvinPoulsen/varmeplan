@@ -65,7 +65,6 @@ const VillagesPage: FC = () => {
         const ses = mm.getSession();
         const ds = ses.getDatasource(villagesData);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
-            console.log('rows: ',rows)
             setVillagesData(rows);
             let maxValue = Math.max.apply(
                 null,

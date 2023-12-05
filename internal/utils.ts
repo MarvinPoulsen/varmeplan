@@ -65,14 +65,15 @@ export const getYears = (data: HeatPlanRow[]) => {
 
 export const getAnalysisParams = (data: HeatPlanRow[]) => {
     if (forceAnalysis) {
-        console.log('forceAnalysis: ', forceAnalysis);
-        return forceAnalysis;
+        console.log('forceAnalysis (',typeof forceAnalysis,'): ', forceAnalysis);
+        const analysisParams: string[] = forceAnalysis.split(',');
+        console.log('analysisParams (',typeof analysisParams,'): ', analysisParams);
+        return analysisParams;
     } else {
         data.sort((a, b) => a.sekvens - b.sekvens);
         const uniqueAnalysisParams = [...new Set(data.map((item) => item.varme))];
         //     const analysisParams = uniqueAnalysisParams.map(item => {return {title: item, on: true}});
         // return analysisParams;
-        console.log('forceAnalysis: ', forceAnalysis);
         console.log('uniqueAnalysisParams: ', uniqueAnalysisParams);
         return uniqueAnalysisParams;
     }

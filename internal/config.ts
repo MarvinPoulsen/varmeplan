@@ -125,4 +125,3 @@ const opencountryZoomToAreaParam = '[module.varmeplan.opencountry.zoom2area.colu
 const opencountryZoomToAreaDev = 'navn';
 export const opencountryZoomToArea = opencountryZoomToAreaParam.includes('[') ? opencountryZoomToAreaDev : opencountryZoomToAreaParam;
 // opencountry
-

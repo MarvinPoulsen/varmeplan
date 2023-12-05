@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
 import {
@@ -36,6 +36,42 @@ const OpenCountryPage: FC = () => {
     const [mapThemes, setMapThemes] = useState<string[]>([]);
 
     const [heatingAgents, setHeatingAgents] = useState<AnalysisParams[]>([]);
+
+    useEffect(() => {
+        if (minimap.current) {
+            const mm = minimap.current;
+            const ses = mm.getSession();
+            if (mapThemes.length > 0) {
+                for (const theme of mapThemes) {
+                    const getTheme = mm.getTheme(theme);
+                    const datasource = getTheme.getDatasources()[0];
+                    if (area) {
+                        ses.getDatasource(datasource).setFilterParams(
+                            { [opencountryButtonFilter]: year, [opencountrySelectFilter]: area }, //setFilterParams({ [aar]: year, [navn]: area });
+                            (response) => {
+                                getTheme.repaint();
+                                if (response.exception) console.log(response.exception);
+                            }
+                        );
+                    } else {
+                        ses.setProperties(
+                            'datasource_filter_state',
+                            datasource,
+                            { [opencountryButtonFilter]: 'false', [opencountrySelectFilter]: 'true' },
+                            (response) => {
+                                getTheme.repaint();
+                                if (response.exception) console.log(response.exception);
+                            }
+                        );
+                        ses.getDatasource(datasource).setFilterParams({ [opencountryButtonFilter]: year }, (response) => {
+                            getTheme.repaint();
+                            if (response.exception) console.log(response.exception);
+                        });
+                    }
+                }
+            }
+        }
+    }, [area, year]);
 
     const onMapReady = (mm) => {
         minimap.current = mm;
