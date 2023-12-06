@@ -7,6 +7,7 @@ import SupplyAreaPage from '../../pages/SupplyArea';
 import VillagesPage from '../../pages/Villages';
 import CottageAreasPage from '../../pages/CottageAreas';
 import OpenCountryPage from '../../pages/OpenCountry';
+import MunicipalityPage from '../../pages/Municipality';
 
 const App: FC = () => {
     const paramCheck = '[module.varmeplan.supplyarea.themegroup]';
@@ -24,6 +25,7 @@ const App: FC = () => {
                         <Route path="/landsbyer" element={<VillagesPage />} />
                         <Route path="/sommerhusomraader" element={<CottageAreasPage />} />
                         <Route path="/detaabneland" element={<OpenCountryPage />} />
+                        <Route path="/lollandkommune" element={<MunicipalityPage />} />
                         <Route path="*" element={<Navigate to="/" />} />
                     </Route>
                 </Routes>

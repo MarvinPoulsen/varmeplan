@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
-import { cottageareasArea, cottageareasButtonFilter, cottageareasData, cottageareasMinimapId, cottageareasSelectFilter, cottageareasThemegroup } from '../../config';
+import { cottageareasArea, cottageareasButtonFilter, cottageareasDatasource, cottageareasMinimapId, cottageareasSelectFilter, cottageareasThemegroup } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
@@ -61,7 +61,7 @@ const CottageAreasPage: FC = () => {
     const onMapReady = (mm) => {
         minimap.current = mm;
         const ses = mm.getSession();
-        const ds = ses.getDatasource(cottageareasData);
+        const ds = ses.getDatasource(cottageareasDatasource);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
             setCottageAreasData(rows);
             let maxValue = Math.max.apply(

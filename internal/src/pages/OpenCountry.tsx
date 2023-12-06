@@ -4,7 +4,7 @@ import Map from '../components/minimap/Minimap';
 import {
     opencountryArea,
     opencountryButtonFilter,
-    opencountryData,
+    opencountryDatasource,
     opencountryMinimapId,
     opencountrySelectFilter,
     opencountryZoomToArea,
@@ -76,7 +76,7 @@ const OpenCountryPage: FC = () => {
     const onMapReady = (mm) => {
         minimap.current = mm;
         const ses = mm.getSession();
-        const ds = ses.getDatasource(opencountryData);
+        const ds = ses.getDatasource(opencountryDatasource);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
             setOpenCountryData(rows);
             let maxValue = Math.max.apply(

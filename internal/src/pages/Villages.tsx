@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
-import { villagesButtonFilter, villagesArea, villagesData, villagesMinimapId, villagesThemegroup, villagesSelectFilter, villagesZoomToArea } from '../../config';
+import { villagesButtonFilter, villagesArea, villagesDatasource, villagesMinimapId, villagesThemegroup, villagesSelectFilter, villagesZoomToArea } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
@@ -15,7 +15,7 @@ export interface AreaRow {
 
 const VillagesPage: FC = () => {
     const minimap: any = useRef(null);
-    const [VillagesData, setVillagesData] = useState<HeatPlanRow[]>([]);
+    const [villagesData, setVillagesData] = useState<HeatPlanRow[]>([]);
     const [areaData, setAreaData] = useState<AreaRow[]>([]);
     const [year, setYear] = useState<string>('');
     const [area, setArea] = useState<string | undefined>(undefined);
@@ -63,7 +63,7 @@ const VillagesPage: FC = () => {
     const onMapReady = (mm) => {
         minimap.current = mm;
         const ses = mm.getSession();
-        const ds = ses.getDatasource(villagesData);
+        const ds = ses.getDatasource(villagesDatasource);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
             setVillagesData(rows);
             let maxValue = Math.max.apply(
@@ -109,18 +109,18 @@ const VillagesPage: FC = () => {
     };
 	
     const filteredByArea =
-        VillagesData.length > 0 
+        villagesData.length > 0 
 			? area
-				? VillagesData.filter((item) => item[villagesSelectFilter] === area) 
-				: VillagesData 
+				? villagesData.filter((item) => item[villagesSelectFilter] === area) 
+				: villagesData 
 			: [];
 
     const filteredByYear = 
 		filteredByArea.length > 0 ? filteredByArea.filter((item) => item[villagesButtonFilter] === year) : [];
 
     const villagesTable = filteredByYear.length > 0 && createTableData(filteredByYear, heatingAgents);
-    const uniqueYears = getYears(VillagesData);
-    const uniqueAreas = getAreas(VillagesData);
+    const uniqueYears = getYears(villagesData);
+    const uniqueAreas = getAreas(villagesData);
     const villagesStackedbar = filteredByArea.length > 0 && createStackedbarData(filteredByArea, heatingAgents, uniqueYears);
 
     const yearButtonRow: JSX.Element[] = [];

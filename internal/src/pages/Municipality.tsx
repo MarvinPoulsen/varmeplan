@@ -2,17 +2,18 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
 import {
-    supplyareaArea,
-    supplyareaButtonFilter,
-    supplyareaDatasource,
-    supplyareaMinimapId,
-    supplyareaSelectFilter,
-    supplyareaThemegroup,
-    supplyareaZoomToArea,
+    municipalityArea,
+    municipalityButtonFilter,
+    municipalityDatasource,
+    municipalityMinimapId,
+    municipalitySelectFilter,
+    municipalityZoomToArea,
+    municipalityThemegroup,
 } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
+
 import {
     getYears,
     getAreas,
@@ -22,19 +23,18 @@ import {
     createStackedbarData,
     getAnalysisParams,
 } from '../../utils';
-
 export interface AreaRow {
-    navn1203: string;
+    navn: string;
     shape_wkt: { wkt: string };
 }
-
-const SupplyAreaPage: FC = () => {
+const MunicipalityPage: FC = () => {
     const minimap: any = useRef(null);
-    const [supplyAreaData, setSupplyAreaData] = useState<HeatPlanRow[]>([]);
+    const [municipalityData, setMunicipalityData] = useState<HeatPlanRow[]>([]);
     const [areaData, setAreaData] = useState<AreaRow[]>([]);
     const [year, setYear] = useState<string>('');
     const [area, setArea] = useState<string | undefined>(undefined);
     const [mapThemes, setMapThemes] = useState<string[]>([]);
+
     const [heatingAgents, setHeatingAgents] = useState<AnalysisParams[]>([]);
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const SupplyAreaPage: FC = () => {
                     const datasource = getTheme.getDatasources()[0];
                     if (area) {
                         ses.getDatasource(datasource).setFilterParams(
-                            { [supplyareaButtonFilter]: year, [supplyareaSelectFilter]: area }, //setFilterParams({ [aar]: year, [navn]: area });
+                            { [municipalityButtonFilter]: year, [municipalitySelectFilter]: area }, //setFilterParams({ [aar]: year, [navn]: area });
                             (response) => {
                                 getTheme.repaint();
                                 if (response.exception) console.log(response.exception);
@@ -57,56 +57,32 @@ const SupplyAreaPage: FC = () => {
                         ses.setProperties(
                             'datasource_filter_state',
                             datasource,
-                            { [supplyareaButtonFilter]: 'false', [supplyareaSelectFilter]: 'true' },
+                            { [municipalityButtonFilter]: 'false', [municipalitySelectFilter]: 'true' },
                             (response) => {
                                 getTheme.repaint();
                                 if (response.exception) console.log(response.exception);
                             }
                         );
-                        ses.getDatasource(datasource).setFilterParams({ [supplyareaButtonFilter]: year }, (response) => {
+                        ses.getDatasource(datasource).setFilterParams({ [municipalityButtonFilter]: year }, (response) => {
                             getTheme.repaint();
                             if (response.exception) console.log(response.exception);
                         });
                     }
                 }
             }
-            // if (area) {
-            //     var req = minimap.current.getSession().createPageRequest('set-datasource-defaults');
-            //     req.call(
-            //         {
-            //             datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view',
-            //             names: 'aar,navn',
-            //             values: year + ',' + area,
-            //         },
-            //         function (response) {
-            //             minimap.current.getTheme('theme-varmeplan_forsyningsomr_fjernvarme_view').repaint();
-            //         }
-            //     );
-            // } else {
-            //     var req = minimap.current.getSession().createPageRequest('clear-datasource-defaults');
-            //     req.call({ datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view' }, function (response) {
-            //         var req = minimap.current.getSession().createPageRequest('set-datasource-defaults');
-            //         req.call(
-            //             { datasource: 'ds_varmeplan_forsyningsomr_fjernvarme_view', names: 'aar', values: year },
-            //             function (response) {
-            //                 minimap.current.getTheme('theme-varmeplan_forsyningsomr_fjernvarme_view').repaint();
-            //             }
-            //         );
-            //     });
-            // }
         }
     }, [area, year]);
 
     const onMapReady = (mm) => {
         minimap.current = mm;
         const ses = mm.getSession();
-        const ds = ses.getDatasource(supplyareaDatasource);
+        const ds = ses.getDatasource(municipalityDatasource);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
-            setSupplyAreaData(rows);
+            setMunicipalityData(rows);
             let maxValue = Math.max.apply(
                 null,
                 rows.map((row) => {
-                    return row[supplyareaButtonFilter];
+                    return row[municipalityButtonFilter];
                 })
             );
             setYear(maxValue.toString());
@@ -120,17 +96,19 @@ const SupplyAreaPage: FC = () => {
                 setHeatingAgents(params);
             }
         });
-
-        const dsArea = ses.getDatasource(supplyareaArea);
-        dsArea.execute({ command: 'read' }, function (areaRows: AreaRow[]) {
-            setAreaData(areaRows);
-        });
+        if (municipalityArea) {
+            const dsArea = ses.getDatasource(municipalityArea);
+            dsArea.execute({ command: 'read' }, function (areaRows: AreaRow[]) {
+                setAreaData(areaRows);
+            });
+        }
         const themesList = minimap.current
             .getThemeContainer()
-            .getThemeGroup(supplyareaThemegroup)
+            .getThemeGroup(municipalityThemegroup)
             ._elements.map((item) => item.name);
         setMapThemes(themesList);
     };
+
     const onHeatingAgentsToggle = (rowIndex: number) => {
         const updatedHeatingAgents = [...heatingAgents];
         updatedHeatingAgents[rowIndex].on = !updatedHeatingAgents[rowIndex].on;
@@ -144,18 +122,19 @@ const SupplyAreaPage: FC = () => {
     };
 
     const filteredByArea =
-        supplyAreaData.length > 0
+        municipalityData.length > 0
             ? area
-                ? supplyAreaData.filter((item) => item[supplyareaSelectFilter] === area)
-                : supplyAreaData
+                ? municipalityData.filter((item) => item[municipalitySelectFilter] === area)
+                : municipalityData
             : [];
 
     const filteredByYear =
-        filteredByArea.length > 0 ? filteredByArea.filter((item) => item[supplyareaButtonFilter] === year) : [];
-    const supplyAreaTable = filteredByYear.length > 0 && createTableData(filteredByYear, heatingAgents);
-    const uniqueYears = getYears(supplyAreaData);
-    const uniqueAreas = getAreas(supplyAreaData);
-    const supplyAreaStackedbar = filteredByArea.length > 0 && createStackedbarData(filteredByArea, heatingAgents, uniqueYears);
+        filteredByArea.length > 0 ? filteredByArea.filter((item) => item[municipalityButtonFilter] === year) : [];
+
+    const municipalityTable = filteredByYear.length > 0 && createTableData(filteredByYear, heatingAgents);
+    const uniqueYears = getYears(municipalityData);
+    const municipalityStackedbar =
+        municipalityData.length > 0 && createStackedbarData(municipalityData, heatingAgents, uniqueYears);
 
     const yearButtonRow: JSX.Element[] = [];
     for (let i = 0; i < uniqueYears.length; i++) {
@@ -172,12 +151,11 @@ const SupplyAreaPage: FC = () => {
             </div>
         );
     }
-
     const handleAreaFilter = (event) => {
         const area = event ? event.value : undefined;
         setArea(area);
         if (area) {
-            const filteredAreaData = areaData.find((item) => item[supplyareaZoomToArea] === area);
+            const filteredAreaData = areaData.find((item) => item[municipalityZoomToArea] === area);
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
@@ -185,52 +163,58 @@ const SupplyAreaPage: FC = () => {
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
-
-    const options = uniqueAreas.map((element) => {
-        const value = element;
-        const label = element;
-        return {
-            value,
-            label,
-        };
-    });
+    let areaSelectRow: JSX.Element = (<div></div>)
+    if (municipalityArea) {
+        const uniqueAreas = getAreas(municipalityData);
+        const options = uniqueAreas.map((element) => {
+            const value = element;
+            const label = element;
+            return {
+                value,
+                label,
+            };
+        });
+        areaSelectRow = (
+            <div className="control is-expanded">
+                <Select
+                    name="area"
+                    options={options}
+                    className="basic-single"
+                    classNamePrefix="select"
+                    isClearable={true}
+                    isSearchable={true}
+                    onChange={handleAreaFilter}
+                    placeholder="Filtrer på område"
+                />
+            </div>
+        );
+    } 
 
     return (
         <>
-            <div id="SupplyArea-tab-content" className="container">
+            <div id="Municipality-tab-content" className="container">
                 <div className="block">
                     <div className="columns">
-                        <Map id={supplyareaMinimapId} name="supply-area" size="is-4 box" onReady={onMapReady} />
+                        <Map id={municipalityMinimapId} name="municipality" size="is-4" onReady={onMapReady} />
                         <div className="column is-8">
                             <div className="field is-grouped">
                                 {yearButtonRow}
-                                <div className="control is-expanded">
-                                    <Select
-                                        name="area"
-                                        options={options}
-                                        className="basic-single"
-                                        classNamePrefix="select"
-                                        isClearable={true}
-                                        isSearchable={true}
-                                        onChange={handleAreaFilter}
-                                        placeholder="Filtrer på område"
-                                    />
-                                </div>
+                                {areaSelectRow}
                             </div>
                             <div className="block">
                                 <div className="columns">
                                     <div className="column">
-                                        {supplyAreaTable && (
-                                            <TableLegend data={supplyAreaTable} onRowToggle={onHeatingAgentsToggle} />
+                                        {municipalityTable && (
+                                            <TableLegend data={municipalityTable} onRowToggle={onHeatingAgentsToggle} />
                                         )}
                                     </div>
                                     <div className="column is-4">
-                                        <div className="block stackedbar-no-legend box">
-                                            {supplyAreaStackedbar && (
+                                        <div className="block stackedbar-no-legend">
+                                            {municipalityStackedbar && (
                                                 <StackedbarNoLegend
-                                                    title={area ? area : 'Alle forsyningesområder'}
+                                                    title={'Hele Lolland Kommune'}
                                                     categories={uniqueYears}
-                                                    dataSeries={supplyAreaStackedbar}
+                                                    dataSeries={municipalityStackedbar}
                                                     visibility={heatingAgents.map((item) => item.on)}
                                                 />
                                             )}
@@ -245,4 +229,4 @@ const SupplyAreaPage: FC = () => {
         </>
     );
 };
-export default SupplyAreaPage;
+export default MunicipalityPage;

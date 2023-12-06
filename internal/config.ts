@@ -19,10 +19,14 @@ const opencountryMinimapIdParam = '[module.varmeplan.opencountry.minimapid]';
 const opencountryMinimapIdDev = '5490d72f-1077-4969-8c3c-1e6cc7fd012f';
 export const opencountryMinimapId = opencountryMinimapIdParam.includes('[') ? opencountryMinimapIdDev : opencountryMinimapIdParam;
 
+const municipalityMinimapIdParam = '[module.varmeplan.municipality.minimapid]';
+const municipalityMinimapIdDev = '9d956d47-0397-4347-a1fb-8aa511aeda16';
+export const municipalityMinimapId = municipalityMinimapIdParam.includes('[') ? municipalityMinimapIdDev : municipalityMinimapIdParam;
+
 // supplyarea
 const supplyareaDataParam = '[module.varmeplan.supplyarea.data]';
 const supplyareaDataDev = 'ds_varmeplan_vi_forsyningsomr_view';
-export const supplyareaData = supplyareaDataParam.includes('[') ? supplyareaDataDev : supplyareaDataParam;
+export const supplyareaDatasource = supplyareaDataParam.includes('[') ? supplyareaDataDev : supplyareaDataParam;
 
 const supplyareaAreaParam = '[module.varmeplan.supplyarea.area]';
 const supplyareaAreaDev = 'ds_varmeplan_forsyningsomr';
@@ -49,7 +53,7 @@ export const supplyareaZoomToArea = supplyareaZoomToAreaParam.includes('[') ? su
 // villages
 const villagesDataParam = '[module.varmeplan.villages.data]';
 const villagesDataDev = 'ds_varmeplan_vi_landsbyer_view';
-export const villagesData = villagesDataParam.includes('[') ? villagesDataDev : villagesDataParam;
+export const villagesDatasource = villagesDataParam.includes('[') ? villagesDataDev : villagesDataParam;
 
 const villagesAreaParam = '[module.varmeplan.villages.area]';
 const villagesAreaDev = 'ds_varmeplan_landsbyer_varmeplan';
@@ -76,7 +80,7 @@ export const villagesZoomToArea = villagesZoomToAreaParam.includes('[') ? villag
 // cottageareas
 const cottageareasDataParam = '[module.varmeplan.cottageareas.data]';
 const cottageareasDataDev = 'ds_varmeplan_vi_sommerhusomr_view';
-export const cottageareasData = cottageareasDataParam.includes('[') ? cottageareasDataDev : cottageareasDataParam;
+export const cottageareasDatasource = cottageareasDataParam.includes('[') ? cottageareasDataDev : cottageareasDataParam;
 
 const cottageareasAreaParam = '[module.varmeplan.cottageareas.area]';
 const cottageareasAreaDev = 'ds_varmeplan_sommerhusomrader_navne';
@@ -103,7 +107,7 @@ export const cottageareasZoomToArea = cottageareasZoomToAreaParam.includes('[') 
 // opencountry
 const opencountryDataParam = '[module.varmeplan.opencountry.data]';
 const opencountryDataDev = 'ds_varmeplan_vi_aabneland_view';
-export const opencountryData = opencountryDataParam.includes('[') ? opencountryDataDev : opencountryDataParam;
+export const opencountryDatasource = opencountryDataParam.includes('[') ? opencountryDataDev : opencountryDataParam;
 
 const opencountryAreaParam = '[module.varmeplan.opencountry.area]';
 const opencountryAreaDev = undefined;
@@ -125,3 +129,31 @@ const opencountryZoomToAreaParam = '[module.varmeplan.opencountry.zoom2area.colu
 const opencountryZoomToAreaDev = 'navn';
 export const opencountryZoomToArea = opencountryZoomToAreaParam.includes('[') ? opencountryZoomToAreaDev : opencountryZoomToAreaParam;
 // opencountry
+
+
+// municipality
+const municipalityDataParam = '[module.varmeplan.municipality.data]';
+const municipalityDataDev = 'ds_varmeplan_vi_lolland_view';
+export const municipalityDatasource = municipalityDataParam.includes('[') ? municipalityDataDev : municipalityDataParam;
+
+const municipalityAreaParam = '[module.varmeplan.municipality.area]';
+const municipalityAreaDev = undefined;
+export const municipalityArea = municipalityAreaParam.includes('[') ? municipalityAreaDev : municipalityAreaParam;
+
+const municipalityThemegroupParam = '[module.varmeplan.municipality.themegroup]';
+const municipalityThemegroupDev = 'lolland';
+export const municipalityThemegroup = municipalityThemegroupParam.includes('[') ? municipalityThemegroupDev : municipalityThemegroupParam;
+
+const municipalitySelectFilterParam = '[module.varmeplan.municipality.select.filter.column]';
+const municipalitySelectFilterDev = 'navn';
+export const municipalitySelectFilter = municipalitySelectFilterParam.includes('[') ? municipalitySelectFilterDev : municipalitySelectFilterParam;
+
+const municipalityButtonFilterParam = '[module.varmeplan.municipality.button.filter.column]';
+const municipalityButtonFilterDev = 'aar';
+export const municipalityButtonFilter = municipalityButtonFilterParam.includes('[') ? municipalityButtonFilterDev : municipalityButtonFilterParam;
+
+const municipalityZoomToAreaParam = '[module.varmeplan.municipality.zoom2area.column]';
+const municipalityZoomToAreaDev = 'navn';
+export const municipalityZoomToArea = municipalityZoomToAreaParam.includes('[') ? municipalityZoomToAreaDev : municipalityZoomToAreaParam;
+// municipality
+

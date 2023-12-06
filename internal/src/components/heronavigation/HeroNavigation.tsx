@@ -6,12 +6,14 @@ import {
     mdiHomeGroup,
     mdiBeach,
     mdiHomeThermometer,
+    mdiChartBar  , 
 } from '@mdi/js';
 enum Tab {
     SupplyArea,
     Villages,
     CottageAreas,
     OpenCountry,
+    Municipality,
 }
 const HeroNavigation: FC = () => {
     let location = useLocation();
@@ -33,6 +35,10 @@ const HeroNavigation: FC = () => {
                 setActiveTab(Tab.OpenCountry,
                     );
                 break;
+                case '/lollandkommune':
+                    setActiveTab(Tab.Municipality,
+                        );
+                    break;
             default:
                 setActiveTab(0);
         }
@@ -79,6 +85,14 @@ const HeroNavigation: FC = () => {
                                         <Icon path={mdiNaturePeople} size={1} />
                                     </span>
                                     <span className="navigation-text ml-1">Det åbne land</span>
+                                </Link>
+                            </li>
+                            <li className={isActiveTab === Tab.Municipality ? 'is-active' : ''}>
+                                <Link to="/lollandkommune">
+                                    <span>
+                                        <Icon path={mdiChartBar  } size={1} />
+                                    </span>
+                                    <span className="navigation-text ml-1">Hele Lolland Kommune</span>
                                 </Link>
                             </li>
                         </ul>
