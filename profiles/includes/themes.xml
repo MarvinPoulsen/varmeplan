@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <themes>
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/profiles/includes/themes_lolland.xml"/>
 	<include onlychildnodes="true" src="[module:varmeplan.dir]/profiles/includes/themes_aabneland.xml"/>
 	<include onlychildnodes="true" src="[module:varmeplan.dir]/profiles/includes/themes_sommerhusomr.xml"/>
 	<include onlychildnodes="true" src="[module:varmeplan.dir]/profiles/includes/themes_landsbyer.xml"/>

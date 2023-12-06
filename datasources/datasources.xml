@@ -6,6 +6,7 @@
         <pwd>[cbinfo.connection.lolland_postgis.pwd]</pwd>
     </endpoint>
 
+	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_lolland.xml"/>
 	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_aabneland.xml"/>
 	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_sommerhusomr.xml"/>
 	<include onlychildnodes="true" src="[module:varmeplan.dir]/datasources/datasources_landsbyer.xml"/>
@@ -38,6 +39,9 @@
 	    <table geometrycolumn="geom" name="varmevaerker" pkcolumn="id" schema="varmeplan"/>
     </datasource> -->
 
+    <datasource displayname="Municipality" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_vi_lolland_view">
+        <table name="vi_lolland_view" pkcolumn="id" schema="varmeplan"/>
+    </datasource>
     <datasource displayname="OpenCountry" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_vi_aabneland_view">
         <table name="vi_aabneland_view" pkcolumn="id" schema="varmeplan"/>
     </datasource>

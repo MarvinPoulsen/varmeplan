@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<themes>
+    <theme module="varmeplan" name="theme-varmeplan_lolland_fjernvarme_view">
+        <themeselector>
+			<displayname>Fjernvarme</displayname>
+            <initialstate>hidden</initialstate>
+            <group>lolland</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>false</downloadable>
+    </theme>
+    <theme module="varmeplan" name="theme-varmeplan_lolland_varmepumpe_view">
+        <themeselector>
+			<displayname>Varmepumpe</displayname>
+            <initialstate>hidden</initialstate>
+            <group>lolland</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>false</downloadable>
+    </theme>
+    <theme module="varmeplan" name="theme-varmeplan_lolland_elvarme_view">
+        <themeselector>
+			<displayname>Elvarme</displayname>
+            <initialstate>hidden</initialstate>
+            <group>lolland</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>false</downloadable>
+    </theme>
+    <theme module="varmeplan" name="theme-varmeplan_lolland_biobraendsel_view">
+        <themeselector>
+			<displayname>Biobrændsel</displayname>
+            <initialstate>hidden</initialstate>
+            <group>lolland</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>false</downloadable>
+    </theme>
+    <theme module="varmeplan" name="theme-varmeplan_lolland_olie_view">
+        <themeselector>
+			<displayname>Olie</displayname>
+            <initialstate>hidden</initialstate>
+            <group>lolland</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>false</downloadable>
+    </theme>
+    <theme module="varmeplan" name="theme-varmeplan_lolland_andet_view">
+        <themeselector>
+			<displayname>Andet</displayname>
+            <initialstate>hidden</initialstate>
+            <group>lolland</group>
+            <selectable>true</selectable>
+        </themeselector>
+        <downloadable>false</downloadable>
+    </theme>
+</themes>

@@ -2,6 +2,7 @@
 <themegroups>
     <themegroup name="varmeplan" type="checkbutton"/>
     <themegroup name="aabneland" type="checkbutton"/>
+    <themegroup name="lolland" type="checkbutton"/>
     <themegroup name="sommerhusomr" type="checkbutton"/>
     <themegroup name="landsbyer" type="checkbutton"/>
     <themegroup name="forsyningsomr" type="checkbutton"/>
