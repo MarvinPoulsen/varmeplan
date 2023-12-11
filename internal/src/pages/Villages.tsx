@@ -170,7 +170,7 @@ const handleYearFilter = () => {
         <div id="Villages-tab-content" className="container">
             <div className="block">
                 <div className="columns">
-                    <Map id={villagesMinimapId} name="villages" size="is-4" onReady={onMapReady} />
+                    <Map id={villagesMinimapId} name="villages" size="is-3" onReady={onMapReady} />
                         <div className="column is-8">
                             <div className="field is-grouped">
                                 {yearButtonRow}
@@ -184,6 +184,19 @@ const handleYearFilter = () => {
                                         isSearchable={true}
                                         onChange={handleAreaFilter}
                                         placeholder="Filtrer på område"
+                                        theme={(theme) => (
+                                            {
+                                            ...theme,
+                                            borderRadius: 4,
+                                            colors: {
+                                              ...theme.colors,
+                                              primary25: '#e4eff9',
+                                              primary50: '#3e8ed040',
+                                              primary: '#3082c5',
+                                            },
+                                          }
+                                          )
+                                        }
                                     />
                                 </div>
                             </div>
@@ -194,7 +207,7 @@ const handleYearFilter = () => {
                                             <TableLegend data={villagesTable} onRowToggle={onHeatingAgentsToggle} />
                                         )}
                                     </div>
-                                    <div className="column is-4">
+                                    <div className="column is-3">
                                         <div className="block stackedbar-no-legend">
                                             {villagesStackedbar && (
                                                 <StackedbarNoLegend

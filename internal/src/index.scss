@@ -4,6 +4,25 @@
 @import "../node_modules/bulma/sass/utilities/initial-variables.sass";
 @import "../node_modules/bulma/sass/utilities/functions.sass";
 
+// 1.1 Set sharp edges
+// $radius-small: 0px;
+// $radius: 0px;
+// $radius-large: 0px;
+
+@media (max-width: $desktop) {  
+  .columns.is-reversed-touch {  
+    flex-direction: column-reverse;  
+    display: flex;  
+  } 
+}
+
+// @media (max-width: $tablet) {  
+//   .columns.is-reversed-mobile {  
+//     flex-direction: row-reverse;  
+//     display: flex;  
+//   } 
+// }
+
 // 2. Set your own initial variables
 // Lolland colors Pantone 294
 $dark-blue: #003478;

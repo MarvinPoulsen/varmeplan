@@ -162,9 +162,9 @@ const CottageAreasPage: FC = () => {
         <>
         <div id="CottageAreas-tab-content" className="container">
             <div className="block">
-                <div className="columns">
-                    <Map id={cottageareasMinimapId} name="cottage-areas" size="is-4" onReady={onMapReady} />
-                        <div className="column is-8">
+                <div className="columns is-desktop">
+                    <Map id={cottageareasMinimapId} name="cottage-areas" size="is-3" onReady={onMapReady} />
+                        <div className="column">
                             <div className="field is-grouped">
                                 {yearButtonRow}
                                 <div className="control is-expanded">
@@ -177,17 +177,30 @@ const CottageAreasPage: FC = () => {
                                         isSearchable={true}
                                         onChange={handleAreaFilter}
                                         placeholder="Filtrer på område"
+                                        theme={(theme) => (
+                                            {
+                                            ...theme,
+                                            borderRadius: 4,
+                                            colors: {
+                                              ...theme.colors,
+                                              primary25: '#e4eff9',
+                                              primary50: '#3e8ed040',
+                                              primary: '#3082c5',
+                                            },
+                                          }
+                                          )
+                                        }
                                     />
                                 </div>
                             </div>
                             <div className="block">
-                                <div className="columns">
+                                <div className="columns is-desktop is-reversed-touch">
                                     <div className="column">
                                         {cottageAreasTable && (
                                             <TableLegend data={cottageAreasTable} onRowToggle={onHeatingAgentsToggle} />
                                         )}
                                     </div>
-                                    <div className="column is-4">
+                                    <div className="column is-3">
                                         <div className="block stackedbar-no-legend">
                                             {cottageAreasStackedbar && (
                                                 <StackedbarNoLegend

@@ -185,6 +185,19 @@ const OpenCountryPage: FC = () => {
                     isSearchable={true}
                     onChange={handleAreaFilter}
                     placeholder="Filtrer på område"
+                    theme={(theme) => (
+                        {
+                        ...theme,
+                        borderRadius: 4,
+                        colors: {
+                          ...theme.colors,
+                          primary25: '#e4eff9',
+                          primary50: '#3e8ed040',
+                          primary: '#3082c5',
+                        },
+                      }
+                      )
+                    }
                 />
             </div>
         );
