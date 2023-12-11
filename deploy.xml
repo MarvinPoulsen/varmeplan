@@ -4,11 +4,6 @@
     <lastupdated>Thu Oct 26 12:12:35 CEST 2023</lastupdated>
     <since>2023-10-26 10:39:22</since>
 
-    <!-- <param name="module.minimap2.searchresult.layer.polygon.color">0,102,0</param> -->
-    <!-- <param name="module.minimap2.searchresult.layer.polygon.opacity">0</param> -->
-    <!-- <param name="module.minimap2.searchresult.layer.polygon.outline.color">255,255,0</param> -->
-    <!-- <param name="module.minimap2.searchresult.layer.line.color">255,204,255</param> -->
-    <!-- <param name="module.varmeplan.supplyarea.themegroup">forsyningsomr</param> -->
     <param name="module.varmeplan.force.analysisparams">Fjernvarme/blokvarme,Varmepumpe,Elvarme,Biobrændsel,Olie,Andet</param>
 	
     <makedir dir="[cbinfo.wwwroot.dir]/modules/varmeplan" />

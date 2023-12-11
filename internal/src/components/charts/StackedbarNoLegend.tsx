@@ -38,6 +38,7 @@ interface StackedDatasets {
 }
 
 export function StackedbarNoLegend(props: StackedbarProps) {
+  console.log('StackedbarProps: ',props)
   const chartRef = useRef<any>();
   useEffect(()=>{
     if (chartRef) {
@@ -95,6 +96,7 @@ export function StackedbarNoLegend(props: StackedbarProps) {
   const data: ChartData<'bar'> = {
     labels: props.categories,
     datasets,
+    // datasets:datasets.reverse(),
   };
 
   return <Bar 

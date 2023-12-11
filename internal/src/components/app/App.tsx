@@ -10,8 +10,6 @@ import OpenCountryPage from '../../pages/OpenCountry';
 import MunicipalityPage from '../../pages/Municipality';
 
 const App: FC = () => {
-    const paramCheck = '[module.varmeplan.supplyarea.themegroup]';
-    console.log('paramCheck: ',paramCheck)
     return (
         <>
             <section className="hero is-primary is-small">

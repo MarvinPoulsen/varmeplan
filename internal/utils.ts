@@ -65,16 +65,11 @@ export const getYears = (data: HeatPlanRow[]) => {
 
 export const getAnalysisParams = (data: HeatPlanRow[]) => {
     if (forceAnalysis) {
-        console.log('forceAnalysis (',typeof forceAnalysis,'): ', forceAnalysis);
         const analysisParams: string[] = forceAnalysis.split(',');
-        console.log('analysisParams (',typeof analysisParams,'): ', analysisParams);
         return analysisParams;
     } else {
         data.sort((a, b) => a.sekvens - b.sekvens);
         const uniqueAnalysisParams = [...new Set(data.map((item) => item.varme))];
-        //     const analysisParams = uniqueAnalysisParams.map(item => {return {title: item, on: true}});
-        // return analysisParams;
-        console.log('uniqueAnalysisParams: ', uniqueAnalysisParams);
         return uniqueAnalysisParams;
     }
 };
@@ -114,6 +109,7 @@ export const createTableData = (data: HeatPlanRow[], analysisParams: AnalysisPar
 };
 
 export const createStackedbarData = (data: HeatPlanRow[], analysisParams: AnalysisParams[], years: string[]) => {
+    console.log('data: ',data)
     const stackedbarData: StackedDataSeries[] = [];
     for (let i = 0; i < analysisParams.length; i++) {
         const analysisParam = analysisParams[i];
@@ -131,5 +127,6 @@ export const createStackedbarData = (data: HeatPlanRow[], analysisParams: Analys
             stack: '0',
         });
     }
+    console.log('stackedbarData: ',stackedbarData)
     return stackedbarData;
 };
