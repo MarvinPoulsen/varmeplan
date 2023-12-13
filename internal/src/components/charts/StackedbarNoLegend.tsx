@@ -38,7 +38,6 @@ interface StackedDatasets {
 }
 
 export function StackedbarNoLegend(props: StackedbarProps) {
-  console.log('StackedbarProps: ',props)
   const chartRef = useRef<any>();
   useEffect(()=>{
     if (chartRef) {

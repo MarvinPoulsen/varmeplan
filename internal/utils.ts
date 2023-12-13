@@ -109,7 +109,6 @@ export const createTableData = (data: HeatPlanRow[], analysisParams: AnalysisPar
 };
 
 export const createStackedbarData = (data: HeatPlanRow[], analysisParams: AnalysisParams[], years: string[]) => {
-    console.log('data: ',data)
     const stackedbarData: StackedDataSeries[] = [];
     for (let i = 0; i < analysisParams.length; i++) {
         const analysisParam = analysisParams[i];
@@ -127,6 +126,5 @@ export const createStackedbarData = (data: HeatPlanRow[], analysisParams: Analys
             stack: '0',
         });
     }
-    console.log('stackedbarData: ',stackedbarData)
     return stackedbarData;
 };
