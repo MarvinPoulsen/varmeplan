@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
-import { villagesButtonFilter, villagesArea, villagesDatasource, villagesMinimapId, villagesThemegroup, villagesSelectFilter, villagesZoomToArea } from '../../config';
+import { villagesButtonFilter, villagesArea, villagesDatasource, villagesMinimapId, villagesThemegroup, villagesSelectFilter, villagesZoomToArea, forceMapExtent } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
@@ -62,6 +62,9 @@ const VillagesPage: FC = () => {
 
     const onMapReady = (mm) => {
         minimap.current = mm;
+        if (forceMapExtent){
+            minimap.current.getMapControl().zoomToExtent(forceMapExtent);
+        }
         const ses = mm.getSession();
         const ds = ses.getDatasource(villagesDatasource);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
@@ -139,10 +142,6 @@ const VillagesPage: FC = () => {
         );
     }
 
-const handleYearFilter = () => {
-
-}
-
     const handleAreaFilter = (event) => {
         const area = event ? event.value : undefined;
         setArea(area);
@@ -151,7 +150,7 @@ const handleYearFilter = () => {
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
-            const mapExtent = minimap.current.getMapControl()._mapConfig.getExtent();
+            const mapExtent = forceMapExtent ? forceMapExtent : minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
@@ -169,9 +168,9 @@ const handleYearFilter = () => {
         <>
         <div id="Villages-tab-content" className="container">
             <div className="block">
-                <div className="columns">
-                    <Map id={villagesMinimapId} name="villages" size="is-3" onReady={onMapReady} />
-                        <div className="column is-8">
+                <div className="columns is-desktop">
+                    <Map id={villagesMinimapId} name="villages" size="is-4-desktop box" onReady={onMapReady} />
+                        <div className="column is-8-desktop">
                             <div className="field is-grouped">
                                 {yearButtonRow}
                                 <div className="control is-expanded">
@@ -201,14 +200,14 @@ const handleYearFilter = () => {
                                 </div>
                             </div>
                             <div className="block">
-                                <div className="columns">
+                                <div className="columns is-desktop">
                                     <div className="column">
                                         {villagesTable && (
                                             <TableLegend data={villagesTable} onRowToggle={onHeatingAgentsToggle} />
                                         )}
                                     </div>
-                                    <div className="column is-3">
-                                        <div className="block stackedbar-no-legend">
+                                    <div className="column is-4-tablet">
+                                        <div className="block stackedbar-no-legend box">
                                             {villagesStackedbar && (
                                                 <StackedbarNoLegend
                                                     title={area ? area : 'Alle forsyningesområder'}

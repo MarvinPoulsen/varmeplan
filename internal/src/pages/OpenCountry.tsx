@@ -9,6 +9,7 @@ import {
     opencountrySelectFilter,
     opencountryZoomToArea,
     opencountryThemegroup,
+    forceMapExtent,
 } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
@@ -75,6 +76,9 @@ const OpenCountryPage: FC = () => {
 
     const onMapReady = (mm) => {
         minimap.current = mm;
+        if (forceMapExtent){
+            minimap.current.getMapControl().zoomToExtent(forceMapExtent);
+        }
         const ses = mm.getSession();
         const ds = ses.getDatasource(opencountryDatasource);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
@@ -159,7 +163,7 @@ const OpenCountryPage: FC = () => {
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
-            const mapExtent = minimap.current.getMapControl()._mapConfig.getExtent();
+            const mapExtent = forceMapExtent ? forceMapExtent : minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
@@ -207,22 +211,22 @@ const OpenCountryPage: FC = () => {
         <>
             <div id="OpenCountry-tab-content" className="container">
                 <div className="block">
-                    <div className="columns">
-                        <Map id={opencountryMinimapId} name="open-country" size="is-4" onReady={onMapReady} />
-                        <div className="column is-8">
+                    <div className="columns is-desktop">
+                        <Map id={opencountryMinimapId} name="open-country" size="is-4-desktop box" onReady={onMapReady} />
+                        <div className="column is-8-desktop">
                             <div className="field is-grouped">
                                 {yearButtonRow}
                                 {areaSelectRow}
                             </div>
                             <div className="block">
-                                <div className="columns">
+                                <div className="columns is-desktop">
                                     <div className="column">
                                         {openCountryTable && (
                                             <TableLegend data={openCountryTable} onRowToggle={onHeatingAgentsToggle} />
                                         )}
                                     </div>
-                                    <div className="column is-4">
-                                        <div className="block stackedbar-no-legend">
+                                    <div className="column is-4-tablet">
+                                        <div className="block stackedbar-no-legend box">
                                             {openCountryStackedbar && (
                                                 <StackedbarNoLegend
                                                     title={'Det åbne land'}

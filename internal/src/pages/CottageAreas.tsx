@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
-import { cottageareasArea, cottageareasButtonFilter, cottageareasDatasource, cottageareasMinimapId, cottageareasSelectFilter, cottageareasThemegroup } from '../../config';
+import { cottageareasArea, cottageareasButtonFilter, cottageareasDatasource, cottageareasMinimapId, cottageareasSelectFilter, cottageareasThemegroup, forceMapExtent } from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
@@ -60,6 +60,9 @@ const CottageAreasPage: FC = () => {
 
     const onMapReady = (mm) => {
         minimap.current = mm;
+        if (forceMapExtent){
+            minimap.current.getMapControl().zoomToExtent(forceMapExtent);
+        }
         const ses = mm.getSession();
         const ds = ses.getDatasource(cottageareasDatasource);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
@@ -144,7 +147,8 @@ const CottageAreasPage: FC = () => {
             const filteredAreaData = areaData.find((item) => item[cottageareasSelectFilter] === area);
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
-            const mapExtent = minimap.current.getMapControl()._mapConfig.getExtent();
+            minimap.current.getMapControl().setMarkingGeometry();
+            const mapExtent = forceMapExtent ? forceMapExtent : minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
@@ -163,8 +167,8 @@ const CottageAreasPage: FC = () => {
         <div id="CottageAreas-tab-content" className="container">
             <div className="block">
                 <div className="columns is-desktop">
-                    <Map id={cottageareasMinimapId} name="cottage-areas" size="is-3" onReady={onMapReady} />
-                        <div className="column">
+                    <Map id={cottageareasMinimapId} name="cottage-areas" size="is-4-desktop box" onReady={onMapReady} />
+                        <div className="column is-8-desktop">
                             <div className="field is-grouped">
                                 {yearButtonRow}
                                 <div className="control is-expanded">
@@ -194,14 +198,14 @@ const CottageAreasPage: FC = () => {
                                 </div>
                             </div>
                             <div className="block">
-                                <div className="columns is-desktop is-reversed-touch">
+                                <div className="columns is-desktop">
                                     <div className="column">
                                         {cottageAreasTable && (
                                             <TableLegend data={cottageAreasTable} onRowToggle={onHeatingAgentsToggle} />
                                         )}
                                     </div>
-                                    <div className="column is-3">
-                                        <div className="block stackedbar-no-legend">
+                                    <div className="column is-4-tablet">
+                                        <div className="block stackedbar-no-legend box">
                                             {cottageAreasStackedbar && (
                                                 <StackedbarNoLegend
                                                     title={area ? area : 'Alle sommerhusområder'}

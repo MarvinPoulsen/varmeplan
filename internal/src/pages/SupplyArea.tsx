@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
 import {
+    forceMapExtent,
     supplyareaArea,
     supplyareaButtonFilter,
     supplyareaDatasource,
@@ -99,6 +100,9 @@ const SupplyAreaPage: FC = () => {
 
     const onMapReady = (mm) => {
         minimap.current = mm;
+        if (forceMapExtent){
+            minimap.current.getMapControl().zoomToExtent(forceMapExtent);
+        }
         const ses = mm.getSession();
         const ds = ses.getDatasource(supplyareaDatasource);
         ds.execute({ command: 'read' }, function (rows: HeatPlanRow[]) {
@@ -181,7 +185,7 @@ const SupplyAreaPage: FC = () => {
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
-            const mapExtent = minimap.current.getMapControl()._mapConfig.getExtent();
+            const mapExtent = forceMapExtent ? forceMapExtent : minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
@@ -199,9 +203,9 @@ const SupplyAreaPage: FC = () => {
         <>
             <div id="SupplyArea-tab-content" className="container">
                 <div className="block">
-                    <div className="columns">
-                        <Map id={supplyareaMinimapId} name="supply-area" size="is-4 box" onReady={onMapReady} />
-                        <div className="column is-8">
+                    <div className="columns is-desktop">
+                        <Map id={supplyareaMinimapId} name="supply-area" size="is-4-desktop box" onReady={onMapReady} />
+                        <div className="column is-8-desktop">
                             <div className="field is-grouped">
                                 {yearButtonRow}
                                 <div className="control is-expanded">
@@ -231,13 +235,13 @@ const SupplyAreaPage: FC = () => {
                                 </div>
                             </div>
                             <div className="block">
-                                <div className="columns">
+                                <div className="columns is-desktop">
                                     <div className="column">
                                         {supplyAreaTable && (
                                             <TableLegend data={supplyAreaTable} onRowToggle={onHeatingAgentsToggle} />
                                         )}
                                     </div>
-                                    <div className="column is-4">
+                                    <div className="column is-4-tablet">
                                         <div className="block stackedbar-no-legend box">
                                             {supplyAreaStackedbar && (
                                                 <StackedbarNoLegend

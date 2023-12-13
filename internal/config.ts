@@ -3,6 +3,11 @@ const forceAnalysisDev = undefined;
 // const forceAnalysisDev = ["Fjernvarme/blokvarme","Varmepumpe","Elvarme","Biobrændsel","Olie","Andet"];
 export const forceAnalysis = forceAnalysisParam.includes('[') ? forceAnalysisDev : forceAnalysisParam;
 
+const forceMapExtentParam = '[module.varmeplan.force.mapextent]';
+// const forceMapExtentDev = undefined;
+const forceMapExtentDev = [625400,6052300,668000,6102000];
+export const forceMapExtent = forceMapExtentParam.includes('[') ? forceMapExtentDev : forceMapExtentParam;
+
 const supplyareaMinimapIdParam = '[module.varmeplan.supplyarea.minimapid]';
 const supplyareaMinimapIdDev = '12c3cde2-dda6-406b-8074-4a5d618b268b';
 export const supplyareaMinimapId = supplyareaMinimapIdParam.includes('[') ? supplyareaMinimapIdDev : supplyareaMinimapIdParam;
