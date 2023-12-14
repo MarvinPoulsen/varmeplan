@@ -4,6 +4,7 @@ export const forceAnalysis = forceAnalysisParam.includes('[') ? forceAnalysisDev
 
 const forceMapExtentParam = '[module.varmeplan.force.mapextent]';
 const forceMapExtentDev = undefined;
+// const forceMapExtentDev = [625400,6052300,668000,6102000];
 export const forceMapExtent = forceMapExtentParam.includes('[') ? forceMapExtentDev : forceMapExtentParam;
 
 const supplyareaMinimapIdParam = '[module.varmeplan.supplyarea.minimapid]';

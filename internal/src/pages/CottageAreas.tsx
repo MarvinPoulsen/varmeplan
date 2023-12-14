@@ -1,11 +1,28 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
-import { cottageareasArea, cottageareasButtonFilter, cottageareasDatasource, cottageareasMinimapId, cottageareasSelectFilter, cottageareasThemegroup, forceMapExtent } from '../../config';
+import {
+    cottageareasArea,
+    cottageareasButtonFilter,
+    cottageareasDatasource,
+    cottageareasMinimapId,
+    cottageareasSelectFilter,
+    cottageareasThemegroup,
+    forceMapExtent,
+} from '../../config';
 import TableLegend from '../components/charts/TableLegend';
 import StackedbarNoLegend from '../components/charts/StackedbarNoLegend';
 import Select from 'react-select';
-import { getYears, getAreas, HeatPlanRow, AnalysisParams, createTableData, createStackedbarData, getAnalysisParams } from '../../utils';
+import {
+    getYears,
+    getAreas,
+    HeatPlanRow,
+    AnalysisParams,
+    createTableData,
+    createStackedbarData,
+    getAnalysisParams,
+    getForcedMapExtent,
+} from '../../utils';
 
 export interface AreaRow {
     navn: string;
@@ -18,7 +35,6 @@ const CottageAreasPage: FC = () => {
     const [areaData, setAreaData] = useState<AreaRow[]>([]);
     const [year, setYear] = useState<string>('');
     const [area, setArea] = useState<string | undefined>(undefined);
-
     const [mapThemes, setMapThemes] = useState<string[]>([]);
     const [heatingAgents, setHeatingAgents] = useState<AnalysisParams[]>([]);
 
@@ -60,8 +76,9 @@ const CottageAreasPage: FC = () => {
 
     const onMapReady = (mm) => {
         minimap.current = mm;
-        if (forceMapExtent){
-            minimap.current.getMapControl().zoomToExtent(forceMapExtent);
+        if (forceMapExtent) {
+            const mapExtent = getForcedMapExtent();
+            minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
         const ses = mm.getSession();
         const ds = ses.getDatasource(cottageareasDatasource);
@@ -92,16 +109,15 @@ const CottageAreasPage: FC = () => {
         const themesList = minimap.current
             .getThemeContainer()
             .getThemeGroup(cottageareasThemegroup)
-            ._elements.map((item) => item.name);// Indsæt param istedet
+            ._elements.map((item) => item.name); // Indsæt param istedet
         setMapThemes(themesList);
     };
-
 
     const onHeatingAgentsToggle = (rowIndex: number) => {
         const updatedHeatingAgents = [...heatingAgents];
         updatedHeatingAgents[rowIndex].on = !updatedHeatingAgents[rowIndex].on;
         setHeatingAgents(updatedHeatingAgents);
-        handleThemeToggle(rowIndex)
+        handleThemeToggle(rowIndex);
     };
 
     const handleThemeToggle = (event) => {
@@ -111,18 +127,19 @@ const CottageAreasPage: FC = () => {
 
     const filteredByArea =
         cottageAreasData.length > 0
-			? area 
-				? cottageAreasData.filter((item) => item[cottageareasSelectFilter] === area) 
-				: cottageAreasData 
-			: [];
+            ? area
+                ? cottageAreasData.filter((item) => item[cottageareasSelectFilter] === area)
+                : cottageAreasData
+            : [];
 
-    const filteredByYear = 
-		filteredByArea.length > 0 ? filteredByArea.filter((item) => item[cottageareasButtonFilter] === year) : [];
+    const filteredByYear =
+        filteredByArea.length > 0 ? filteredByArea.filter((item) => item[cottageareasButtonFilter] === year) : [];
 
     const cottageAreasTable = filteredByYear.length > 0 && createTableData(filteredByYear, heatingAgents);
     const uniqueYears = getYears(cottageAreasData);
     const uniqueAreas = getAreas(cottageAreasData);
-    const cottageAreasStackedbar = filteredByArea.length > 0 && createStackedbarData(filteredByArea, heatingAgents, uniqueYears);
+    const cottageAreasStackedbar =
+        filteredByArea.length > 0 && createStackedbarData(filteredByArea, heatingAgents, uniqueYears);
 
     const yearButtonRow: JSX.Element[] = [];
     for (let i = 0; i < uniqueYears.length; i++) {
@@ -148,7 +165,7 @@ const CottageAreasPage: FC = () => {
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
-            const mapExtent = forceMapExtent ? forceMapExtent : minimap.current.getMapControl()._mapConfig.getExtent();
+            const mapExtent = forceMapExtent ? getForcedMapExtent() : minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
@@ -164,56 +181,60 @@ const CottageAreasPage: FC = () => {
 
     return (
         <>
-        <div id="CottageAreas-tab-content" className="container">
-            <div className="block">
-                <div className="columns is-desktop">
-                    <Map id={cottageareasMinimapId} name="cottage-areas" size="is-4-desktop box" onReady={onMapReady} />
+            <div id="CottageAreas-tab-content" className="container">
+                <div className="block">
+                    <div className="columns is-desktop">
+                        <Map id={cottageareasMinimapId} name="cottage-areas" size="is-4-desktop box" onReady={onMapReady} />
                         <div className="column is-8-desktop">
-                            <div className="field is-grouped">
-                                {yearButtonRow}
-                                <div className="control is-expanded">
-                                    <Select
-                                        name="area"
-                                        options={options}
-                                        className="basic-single"
-                                        classNamePrefix="select"
-                                        isClearable={true}
-                                        isSearchable={true}
-                                        onChange={handleAreaFilter}
-                                        placeholder="Filtrer på område"
-                                        theme={(theme) => (
-                                            {
-                                            ...theme,
-                                            borderRadius: 4,
-                                            colors: {
-                                              ...theme.colors,
-                                              primary25: '#e4eff9',
-                                              primary50: '#3e8ed040',
-                                              primary: '#3082c5',
-                                            },
-                                          }
-                                          )
-                                        }
-                                    />
+                            <div className="columns">
+                                <div className="column is-narrow-tablet">
+                                    <div className="field is-grouped">{yearButtonRow}</div>
+                                </div>
+
+                                <div className="column">
+                                    <div className="control is-expanded">
+                                        <Select
+                                            name="area"
+                                            options={options}
+                                            className="basic-single"
+                                            classNamePrefix="select"
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            onChange={handleAreaFilter}
+                                            placeholder="Filtrer på område"
+                                            theme={(theme) => ({
+                                                ...theme,
+                                                borderRadius: 4,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    primary25: '#e4eff9',
+                                                    primary50: '#3e8ed040',
+                                                    primary: '#3082c5',
+                                                },
+                                            })}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            <div className="block">
-                                <div className="columns is-desktop">
-                                    <div className="column">
-                                        {cottageAreasTable && (
-                                            <TableLegend data={cottageAreasTable} onRowToggle={onHeatingAgentsToggle} />
-                                        )}
-                                    </div>
-                                    <div className="column is-4-tablet">
-                                        <div className="block stackedbar-no-legend box">
-                                            {cottageAreasStackedbar && (
-                                                <StackedbarNoLegend
-                                                    title={area ? area : 'Alle sommerhusområder'}
-                                                    categories={uniqueYears}
-                                                    dataSeries={cottageAreasStackedbar}
-                                                    visibility={heatingAgents.map((item) => item.on)}
-                                                />
+                            <div className="columns">
+                                <div className="block">
+                                    <div className="columns">
+                                        <div className="column">
+                                            {cottageAreasTable && (
+                                                <TableLegend data={cottageAreasTable} onRowToggle={onHeatingAgentsToggle} />
                                             )}
+                                        </div>
+                                        <div className="column is-4-desktop is-3-tablet">
+                                            <div className="block stackedbar-no-legend box">
+                                                {cottageAreasStackedbar && (
+                                                    <StackedbarNoLegend
+                                                        title={area ? area : 'Alle sommerhusområder'}
+                                                        categories={uniqueYears}
+                                                        dataSeries={cottageAreasStackedbar}
+                                                        visibility={heatingAgents.map((item) => item.on)}
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

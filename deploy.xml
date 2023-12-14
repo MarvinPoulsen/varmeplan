@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <deploy name="varmeplan">
-    <version>1.0.0</version>
-    <lastupdated>Thu Oct 26 12:12:35 CEST 2023</lastupdated>
-    <since>2023-10-26 10:39:22</since>
+    <version>1.0.1</version>
+    <lastupdated>Thu Oct 26 12:12:36 CEST 2023</lastupdated>
+    <since>2023-10-26 10:39:23</since>
 
     <param name="module.varmeplan.force.analysisparams">Fjernvarme/blokvarme,Varmepumpe,Elvarme,Biobrændsel,Olie,Andet</param>
+    <param name="module.varmeplan.force.mapextent">true</param>
 	
-    <makedir dir="[cbinfo.wwwroot.dir]/modules/varmeplan" />
-    <copydir fromdir="[module:varmeplan.dir]/dist" todir="[cbinfo.wwwroot.dir]/modules/varmeplan" replacetext="true"/>
+	<makedir dir="[cbinfo.wwwroot.dir]/modules/varmeplan"/>
+    <copydir fromdir="[module:varmeplan.dir]/dist" replacetext="true" todir="[cbinfo.wwwroot.dir]/modules/varmeplan"/>
 </deploy>

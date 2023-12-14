@@ -23,6 +23,7 @@ import {
     createTableData,
     createStackedbarData,
     getAnalysisParams,
+    getForcedMapExtent,
 } from '../../utils';
 export interface AreaRow {
     navn: string;
@@ -35,7 +36,6 @@ const OpenCountryPage: FC = () => {
     const [year, setYear] = useState<string>('');
     const [area, setArea] = useState<string | undefined>(undefined);
     const [mapThemes, setMapThemes] = useState<string[]>([]);
-
     const [heatingAgents, setHeatingAgents] = useState<AnalysisParams[]>([]);
 
     useEffect(() => {
@@ -76,8 +76,9 @@ const OpenCountryPage: FC = () => {
 
     const onMapReady = (mm) => {
         minimap.current = mm;
-        if (forceMapExtent){
-            minimap.current.getMapControl().zoomToExtent(forceMapExtent);
+        if (forceMapExtent) {
+            const mapExtent = getForcedMapExtent();
+            minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
         const ses = mm.getSession();
         const ds = ses.getDatasource(opencountryDatasource);
@@ -163,11 +164,11 @@ const OpenCountryPage: FC = () => {
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
-            const mapExtent = forceMapExtent ? forceMapExtent : minimap.current.getMapControl()._mapConfig.getExtent();
+            const mapExtent = forceMapExtent ? getForcedMapExtent() : minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
-    let areaSelectRow: JSX.Element = (<div></div>)
+    let areaSelectRow: JSX.Element = <div></div>;
     if (opencountryArea) {
         const uniqueAreas = getAreas(openCountryData);
         const options = uniqueAreas.map((element) => {
@@ -189,23 +190,20 @@ const OpenCountryPage: FC = () => {
                     isSearchable={true}
                     onChange={handleAreaFilter}
                     placeholder="Filtrer på område"
-                    theme={(theme) => (
-                        {
+                    theme={(theme) => ({
                         ...theme,
                         borderRadius: 4,
                         colors: {
-                          ...theme.colors,
-                          primary25: '#e4eff9',
-                          primary50: '#3e8ed040',
-                          primary: '#3082c5',
+                            ...theme.colors,
+                            primary25: '#e4eff9',
+                            primary50: '#3e8ed040',
+                            primary: '#3082c5',
                         },
-                      }
-                      )
-                    }
+                    })}
                 />
             </div>
         );
-    } 
+    }
 
     return (
         <>
@@ -214,27 +212,32 @@ const OpenCountryPage: FC = () => {
                     <div className="columns is-desktop">
                         <Map id={opencountryMinimapId} name="open-country" size="is-4-desktop box" onReady={onMapReady} />
                         <div className="column is-8-desktop">
-                            <div className="field is-grouped">
-                                {yearButtonRow}
-                                {areaSelectRow}
+                            <div className="columns">
+                                <div className="column is-narrow-tablet">
+                                    <div className="field is-grouped">{yearButtonRow}</div>
+                                </div>
+
+                                <div className="column">{areaSelectRow}</div>
                             </div>
-                            <div className="block">
-                                <div className="columns is-desktop">
-                                    <div className="column">
-                                        {openCountryTable && (
-                                            <TableLegend data={openCountryTable} onRowToggle={onHeatingAgentsToggle} />
-                                        )}
-                                    </div>
-                                    <div className="column is-4-tablet">
-                                        <div className="block stackedbar-no-legend box">
-                                            {openCountryStackedbar && (
-                                                <StackedbarNoLegend
-                                                    title={'Det åbne land'}
-                                                    categories={uniqueYears}
-                                                    dataSeries={openCountryStackedbar}
-                                                    visibility={heatingAgents.map((item) => item.on)}
-                                                />
+                            <div className="columns">
+                                <div className="block">
+                                    <div className="columns">
+                                        <div className="column">
+                                            {openCountryTable && (
+                                                <TableLegend data={openCountryTable} onRowToggle={onHeatingAgentsToggle} />
                                             )}
+                                        </div>
+                                        <div className="column is-4-tablet">
+                                            <div className="block stackedbar-no-legend box">
+                                                {openCountryStackedbar && (
+                                                    <StackedbarNoLegend
+                                                        title={'Det åbne land'}
+                                                        categories={uniqueYears}
+                                                        dataSeries={openCountryStackedbar}
+                                                        visibility={heatingAgents.map((item) => item.on)}
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

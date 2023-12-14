@@ -31,6 +31,15 @@ export interface StackedDataSeries {
     stack: string;
 }
 
+export const getForcedMapExtent = () => {
+    const minx = parseInt('[cbinfo.map.minx.wc]');
+    const maxx = parseInt('[cbinfo.map.maxx.wc]');
+    const miny = parseInt('[cbinfo.map.miny.wc]');
+    const maxy = parseInt('[cbinfo.map.maxy.wc]');
+    const mapExtent: number[] = [minx,miny,maxx,maxy];
+    return mapExtent
+}
+
 export const toPrettyNumber = (numValue) => {
     return new Intl.NumberFormat().format(numValue);
 };

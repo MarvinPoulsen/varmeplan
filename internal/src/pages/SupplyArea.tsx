@@ -22,6 +22,7 @@ import {
     createTableData,
     createStackedbarData,
     getAnalysisParams,
+    getForcedMapExtent,
 } from '../../utils';
 
 export interface AreaRow {
@@ -100,8 +101,9 @@ const SupplyAreaPage: FC = () => {
 
     const onMapReady = (mm) => {
         minimap.current = mm;
-        if (forceMapExtent){
-            minimap.current.getMapControl().zoomToExtent(forceMapExtent);
+        if (forceMapExtent) {
+            const mapExtent = getForcedMapExtent();
+            minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
         const ses = mm.getSession();
         const ds = ses.getDatasource(supplyareaDatasource);
@@ -135,6 +137,7 @@ const SupplyAreaPage: FC = () => {
             ._elements.map((item) => item.name);
         setMapThemes(themesList);
     };
+
     const onHeatingAgentsToggle = (rowIndex: number) => {
         const updatedHeatingAgents = [...heatingAgents];
         updatedHeatingAgents[rowIndex].on = !updatedHeatingAgents[rowIndex].on;
@@ -185,7 +188,7 @@ const SupplyAreaPage: FC = () => {
             filteredAreaData && minimap.current.getMapControl().setMarkingGeometry(filteredAreaData.shape_wkt, true, true, 300);
         } else if (area === undefined) {
             minimap.current.getMapControl().setMarkingGeometry();
-            const mapExtent = forceMapExtent ? forceMapExtent : minimap.current.getMapControl()._mapConfig.getExtent();
+            const mapExtent = forceMapExtent ? getForcedMapExtent() : minimap.current.getMapControl()._mapConfig.getExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
         }
     };
@@ -206,51 +209,54 @@ const SupplyAreaPage: FC = () => {
                     <div className="columns is-desktop">
                         <Map id={supplyareaMinimapId} name="supply-area" size="is-4-desktop box" onReady={onMapReady} />
                         <div className="column is-8-desktop">
-                            <div className="field is-grouped">
-                                {yearButtonRow}
-                                <div className="control is-expanded">
-                                    <Select
-                                        name="area"
-                                        options={options}
-                                        className="basic-single"
-                                        classNamePrefix="select"
-                                        isClearable={true}
-                                        isSearchable={true}
-                                        onChange={handleAreaFilter}
-                                        placeholder="Filtrer på område"
-                                        theme={(theme) => (
-                                            {
-                                            ...theme,
-                                            borderRadius: 4,
-                                            colors: {
-                                              ...theme.colors,
-                                              primary25: '#e4eff9',
-                                              primary50: '#3e8ed040',
-                                              primary: '#3082c5',
-                                            },
-                                          }
-                                          )
-                                        }
-                                    />
+                            <div className="columns">
+                                <div className="column is-narrow-tablet">
+                                    <div className="field is-grouped">{yearButtonRow}</div>
+                                </div>
+                                <div className="column">
+                                    <div className="control is-expanded">
+                                        <Select
+                                            name="area"
+                                            options={options}
+                                            className="basic-single"
+                                            classNamePrefix="select"
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            onChange={handleAreaFilter}
+                                            placeholder="Filtrer på område"
+                                            theme={(theme) => ({
+                                                ...theme,
+                                                borderRadius: 4,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    primary25: '#e4eff9',
+                                                    primary50: '#3e8ed040',
+                                                    primary: '#3082c5',
+                                                },
+                                            })}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            <div className="block">
-                                <div className="columns is-desktop">
-                                    <div className="column">
-                                        {supplyAreaTable && (
-                                            <TableLegend data={supplyAreaTable} onRowToggle={onHeatingAgentsToggle} />
-                                        )}
-                                    </div>
-                                    <div className="column is-4-tablet">
-                                        <div className="block stackedbar-no-legend box">
-                                            {supplyAreaStackedbar && (
-                                                <StackedbarNoLegend
-                                                    title={area ? area : 'Alle forsyningesområder'}
-                                                    categories={uniqueYears}
-                                                    dataSeries={supplyAreaStackedbar}
-                                                    visibility={heatingAgents.map((item) => item.on)}
-                                                />
+                            <div className="columns">
+                                <div className="block">
+                                    <div className="columns">
+                                        <div className="column">
+                                            {supplyAreaTable && (
+                                                <TableLegend data={supplyAreaTable} onRowToggle={onHeatingAgentsToggle} />
                                             )}
+                                        </div>
+                                        <div className="column is-4-desktop is-3-tablet">
+                                            <div className="block stackedbar-no-legend box">
+                                                {supplyAreaStackedbar && (
+                                                    <StackedbarNoLegend
+                                                        title={area ? area : 'Alle forsyningesområder'}
+                                                        categories={uniqueYears}
+                                                        dataSeries={supplyAreaStackedbar}
+                                                        visibility={heatingAgents.map((item) => item.on)}
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
