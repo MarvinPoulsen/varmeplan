@@ -104,6 +104,8 @@ const SupplyAreaPage: FC = () => {
         if (forceMapExtent) {
             const mapExtent = getForcedMapExtent();
             minimap.current.getMapControl().zoomToExtent(mapExtent);
+            console.log('mapExtent: ',mapExtent)
+            console.log('forceMapExtent: ',forceMapExtent)
         }
         const ses = mm.getSession();
         const ds = ses.getDatasource(supplyareaDatasource);
