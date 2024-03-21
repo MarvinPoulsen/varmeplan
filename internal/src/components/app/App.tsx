@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import './app.scss';
+// import './app.scss';
 
 import HeroNavigation from '../heronavigation/HeroNavigation';
 import SupplyAreaPage from '../../pages/SupplyArea';

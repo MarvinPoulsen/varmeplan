@@ -1,5 +1,5 @@
 import React from 'react';
-import './charts.scss';
+// import './charts.scss';
 import { toPrettyNumber, getBackgroundColor, getBorderColor, TLData } from '../../../utils';
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import '../components/charts/charts.scss';
+// import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
 import {
     villagesButtonFilter,

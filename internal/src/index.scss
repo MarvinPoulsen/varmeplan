@@ -95,3 +95,35 @@ $family-primary: $family-serif;
 
 // 6. Import the rest of Bulma
 @import "../node_modules/bulma/bulma.sass";
+
+td.is-off{
+  text-decoration: line-through;
+}
+.color-box{
+  border-width: 1px;
+  display: inline-block;
+  height: 12px;
+  margin-right: 6px;
+  width: 12px;
+}
+.stackedbar-no-legend {
+  aspect-ratio: 2/1;
+  // aspect-ratio: auto;
+  // aria-label='Beskrivelse af grafen'
+}
+
+#municipality-minimapbody {
+  aspect-ratio: 6 / 5;
+} 
+#open-country-minimapbody {
+  aspect-ratio: 6 / 5;
+} 
+#supply-area-minimapbody {
+  aspect-ratio: 6 / 5;
+} 
+#cottage-areas-minimapbody {
+  aspect-ratio: 6 / 5;
+}
+#villages-minimapbody {
+  aspect-ratio: 6 / 5;
+}

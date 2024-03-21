@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import './minimap.scss';
+// import './minimap.scss';
 
 interface mapProps {
   id: string;
