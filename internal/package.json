@@ -11,7 +11,7 @@
     "scripts": {
         "prebuild": "rimraf ../dist",
         "start": "parcel serve ./src/html/index.html",
-        "build": "parcel build ./src/html/*.html --dist-dir ../dist/ --public-url ./ --no-cache --no-content-hash --no-source-maps && npm run postbuild",
+        "build": "parcel build ./src/html/*.html --dist-dir ../dist/ --public-url ./ --no-cache --no-source-maps && npm run postbuild",
         "postbuild": "python postbuild.py",
         "watch": "parcel watch ./src/html/index.html --dist-dir ../dist/ --public-url ./"
     },
