@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-// import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
 import {
     forceMapExtent,
@@ -208,7 +207,7 @@ const SupplyAreaPage: FC = () => {
         <>
             <div id="SupplyArea-tab-content" className="container">
                 <div className="block">
-                    <div className="columns is-desktop">
+                    <div className="columns is-widescreen">
                         <Map id={supplyareaMinimapId} name="supply-area" size="is-4-desktop box" onReady={onMapReady} />
                         <div className="column is-8-desktop">
                             <div className="columns">

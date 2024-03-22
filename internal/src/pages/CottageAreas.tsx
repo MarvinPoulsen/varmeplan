@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-// import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
 import {
     cottageareasArea,
@@ -183,7 +182,7 @@ const CottageAreasPage: FC = () => {
         <>
             <div id="CottageAreas-tab-content" className="container">
                 <div className="block">
-                    <div className="columns is-desktop">
+                    <div className="columns is-widescreen">
                         <Map id={cottageareasMinimapId} name="cottage-areas" size="is-4-desktop box" onReady={onMapReady} />
                         <div className="column is-8-desktop">
                             <div className="columns">

@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-// import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
 import {
     opencountryArea,
@@ -209,7 +208,7 @@ const OpenCountryPage: FC = () => {
         <>
             <div id="OpenCountry-tab-content" className="container">
                 <div className="block">
-                    <div className="columns is-desktop">
+                    <div className="columns is-widescreen">
                         <Map id={opencountryMinimapId} name="open-country" size="is-4-desktop box" onReady={onMapReady} />
                         <div className="column is-8-desktop">
                             <div className="columns">

@@ -291,7 +291,7 @@ return (
     <>
     <div id="Heatplan-tab-content" className="container">
         <div className="block">
-            <div className="columns is-desktop">
+            <div className="columns is-widescreen">
     <Map id={justamapMinimapId} name="hiddenmap" size="is-4-desktop box" onReady={onMapReady} />
                         <div className="column is-8-desktop">
                             <div className="columns">

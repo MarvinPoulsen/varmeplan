@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-// import '../components/charts/charts.scss';
 import Map from '../components/minimap/Minimap';
 import {
     villagesButtonFilter,
@@ -183,7 +182,7 @@ const VillagesPage: FC = () => {
         <>
             <div id="Villages-tab-content" className="container">
                 <div className="block">
-                    <div className="columns is-desktop">
+                    <div className="columns is-widescreen">
                         <Map id={villagesMinimapId} name="villages" size="is-4-desktop box" onReady={onMapReady} />
                         <div className="column is-8-desktop">
                             <div className="columns">
