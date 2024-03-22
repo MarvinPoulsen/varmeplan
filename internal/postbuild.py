@@ -1,6 +1,6 @@
 import os
 import re
-
+shared_filename = 'heatplans.js'
 try:
     # Definerer stien til mappen 'dist'
     dist_dir = os.path.join(os.path.dirname(__file__), '../dist')
@@ -30,8 +30,8 @@ try:
                     with open(file_path, 'r') as file:
                         file_content = file.read()
                         
-                        # Erstatter filnavnet i html-filens indhold med 'shared_react.js'
-                        file_content = file_content.replace(shared_file, 'shared_react.js')
+                        # Erstatter filnavnet i html-filens indhold med shared_filename
+                        file_content = file_content.replace(shared_file, shared_filename)
                         
                         # Tjekker om html-filen er 'index.html'
                         if file_path.endswith('index.html'):
@@ -41,7 +41,8 @@ try:
                         else:
                             
                             # Erstatter 'http://localhost:8080/' med 'https://kort.lolland.dk/' i de andre html-filer
-                            file_content = file_content.replace('http://localhost:8080/', 'https://kort.lolland.dk/')
+                            # file_content = file_content.replace('http://localhost:8080/', 'https://kort.lolland.dk/')
+                            file_content = file_content.replace('http://localhost:8080/', '/')
                     
                     # Åbner html-filen igen og skriver det opdaterede indhold til filen
                     with open(file_path, 'w') as file:
@@ -49,7 +50,7 @@ try:
             
             # Definerer den gamle og nye sti til filen
             old_name = os.path.join(dist_dir, shared_file)
-            new_name = os.path.join(dist_dir, 'shared_react.js')
+            new_name = os.path.join(dist_dir, shared_filename)
             
             # Omdøber filen
             os.rename(old_name, new_name)
