@@ -26,18 +26,6 @@
     <datasource displayname="sommerhusomrader_navne" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_sommerhusomrader_navne">
         <table geometrycolumn="geom" name="sommerhusomrader_navne" pkcolumn="id" schema="varmeplan"/>
     </datasource>
-    <!-- <datasource displayname="varmeinstallation" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_varmeinstallation">
-        <table geometrycolumn="geom" name="varmeinstallation" pkcolumn="id" schema="varmeplan"/>
-    </datasource>
-	<datasource displayname="Solceller" endpoint="ep_lk_lois_bbr" name="ds_varmeplan_solceller">
-        <table geometrycolumn="geom" name="solceller" pkcolumn="id" schema="lois_bbr"/>
-    </datasource>
-	<datasource displayname="Elvarme og brændeovn" endpoint="ep_lk_lois_bbr" name="ds_varmeplan_elvarme_og_braendeovn">
-        <table geometrycolumn="geom" name="elvarme_og_braendeovn" pkcolumn="id" schema="lois_bbr"/>
-    </datasource>
-	<datasource displayname="Varmeværker" endpoint="varmeplan_lolland_postgis" name="lk_varmevaerker">
-	    <table geometrycolumn="geom" name="varmevaerker" pkcolumn="id" schema="varmeplan"/>
-    </datasource> -->
 
     <datasource displayname="Municipality" endpoint="varmeplan_lolland_postgis" name="ds_varmeplan_vi_lolland_view">
         <table name="vi_lolland_view" pkcolumn="id" schema="varmeplan"/>
